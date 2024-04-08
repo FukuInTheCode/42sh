@@ -1,0 +1,125 @@
+name: Workflow
+
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2028/B-PSU-200-LIL-2-1-42sh-tom.carlier.git
+  EXECUTABLES: mysh
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches-ignore:
+      - 'ga-ignore-*'
+jobs:
+  set_current_url:
+    runs-on: ubuntu-latest
+    outputs:
+      current_url: ${{ steps.set_current_url.outputs.current_url }}
+    steps:
+      - name: Set CURRENT_URL
+        id: set_current_url
+        run: |
+          echo "$MIRROR_URL"
+          MIRROR_URL="$MIRROR_URL"
+          CURRENT_URL=$(echo -e "$MIRROR_URL" | sed 's/.*://; s/\.git.*//')
+          echo "current_url=$CURRENT_URL" >> $GITHUB_OUTPUT
+
+  check_coding_style:
+    needs: set_current_url
+    if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url)}}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: coding style checker
+        run: |
+          ls
+          check.sh $(pwd) $(pwd)
+          ls
+          FILE=coding-style-reports.log
+          if [ -s "$FILE" ]; then
+          input_file="coding-style-reports.log"
+          while IFS= read -r line; do
+
+            filename=$(echo "$line" | cut -d ':' -f 1 | sed 's/^\.\///')
+            line_number=$(echo "$line" | cut -d ':' -f 2)
+            error_type=$(echo "$line" | cut -d ':' -f 3)
+            error_value=$(echo "$line" | cut -d ':' -f 4)
+
+            NAME_FILE="${filename}"
+            LINE="${line_number}"
+            TYPE="${error_type}"
+            VALUE_ERROR="${error_value}"
+
+            echo "::error file=./${NAME_FILE},line=${LINE},title=${TYPE} coding style error::${VALUE_ERROR}"
+            echo "./${NAME_FILE}:${LINE}:${TYPE}:${VALUE_ERROR}"
+          done < "$input_file"
+          exit 1
+          fi
+
+  check_program_compilation:
+    needs:
+      - set_current_url
+      - check_coding_style
+    if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url)}}
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: make
+        timeout-minutes: 2
+        run: make
+      - name: clean
+        run: make clean
+      - name: checking
+        run: |
+          IFS=',' read -ra filenames <<< "$EXECUTABLES"
+          for filename in "${filenames[@]}"; do
+            if [ ! -f "$filename" ]; then
+            exit 1
+            fi
+          done
+
+  run_tests:
+    needs:
+      - set_current_url
+      - check_program_compilation
+    if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url)}}
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: make tests_run
+        timeout-minutes: 2
+        run: make tests_run
+
+  push_to_mirror:
+    needs:
+      - set_current_url
+      - run_tests
+    if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url) }} && ${{ github.event_name }} == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ needs.set_current_url.outputs.current_url }}
+      - run: echo ${{ github.repository }}
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
