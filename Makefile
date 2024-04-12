@@ -46,7 +46,7 @@ fclean: clean
 	@if [ -e "$(NAME)" ]; then echo -e "$(RED)Cleaning binary.$(NC)"; fi
 	@rm -f $(NAME)
 
-run_tests:
+tests_run:
 	@echo -e "$(BLUE)Running tests...$(NC)"
 
 re: fclean all
