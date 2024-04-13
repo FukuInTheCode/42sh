@@ -10,6 +10,9 @@ on:
       - opened
     branches-ignore:
       - 'ga-ignore-*'
+  pull_request_review_comment:
+    types:
+      - created
 jobs:
   set_current_url:
     runs-on: ubuntu-latest
