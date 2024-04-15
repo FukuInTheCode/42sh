@@ -5,11 +5,10 @@ env:
   EXECUTABLES: mysh
 
 on:
-  pull_request:
-    types:
-      - opened
-    branches-ignore:
-      - 'ga-ignore-*'
+  push:
+    branches:
+      - main
+
 jobs:
   set_current_url:
     runs-on: ubuntu-latest
@@ -64,7 +63,6 @@ jobs:
   check_program_compilation:
     needs:
       - set_current_url
-      - check_coding_style
     if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url)}}
     runs-on: ubuntu-latest
     container:
@@ -91,7 +89,6 @@ jobs:
   run_tests:
     needs:
       - set_current_url
-      - check_program_compilation
     if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url)}}
     runs-on: ubuntu-latest
     container:
@@ -109,6 +106,8 @@ jobs:
     needs:
       - set_current_url
       - run_tests
+      - check_coding_style
+      - check_program_compilation
     if: ${{ !contains(needs.set_current_url.outputs.current_url, github.repository) || !contains(github.repository, needs.set_current_url.outputs.current_url) }} && ${{ github.event_name }} == 'push'
     runs-on: ubuntu-latest
     steps:
