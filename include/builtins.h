@@ -27,6 +27,7 @@ int builtin_do_setenv(command_t *, shell_t *);
 int builtin_do_unsetenv(command_t *, shell_t *);
 int builtin_do_printenv(command_t *, shell_t *);
 int builtin_do_exit(command_t *, shell_t *);
+int builtin_do_colon(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -46,6 +47,7 @@ static builtin_t const builtins[] = {
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
     {"exit", builtin_do_exit},
+    {":", builtin_do_colon},
     {NULL, NULL}
 };
 
