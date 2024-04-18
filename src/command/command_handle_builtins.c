@@ -11,7 +11,6 @@
 
 int command_handle_builtins(command_t *command)
 {
-    printf("%s\n", command_get_argv(command)[0]);
     for (size_t i = 0; builtins[i].name; i++) {
         if (!strcmp(builtins[i].name, command_get_argv(command)[0])) {
             return 1;
