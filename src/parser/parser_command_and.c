@@ -17,7 +17,7 @@ static bool token_is_empty(char const *s)
     return true;
 }
 
-static int set_next(parser_t *parser, command_t *and)
+static int set_next(parser_t *parser, command_t *my_and)
 {
     command_t *next = NULL;
 
@@ -29,7 +29,7 @@ static int set_next(parser_t *parser, command_t *and)
     if (token_is_empty(parser->tokens[parser->index]))
         return 0;
     next = parser_command_command(parser);
-    command_add(and, next);
+    command_add(my_and, next);
     return 0;
 }
 

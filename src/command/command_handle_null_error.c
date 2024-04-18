@@ -42,6 +42,7 @@ static int handle_and(command_t *command)
         return 1;
     return 0;
 }
+
 int command_handle_null_error(command_t *command, void *shell_ptr)
 {
     type_t type = command_get_type(command);
