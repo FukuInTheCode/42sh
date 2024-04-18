@@ -12,7 +12,7 @@
 int command_process_builtins(command_t *command, void *shell)
 {
     for (size_t i = 0; builtins[i].f; i++) {
-        if (!strcmp(command_get_path(command), builtins[i].name)) {
+        if (!strcmp(command_get_argv(command)[0], builtins[i].name)) {
             builtins[i].f(command, shell);
             return 1;
         }
