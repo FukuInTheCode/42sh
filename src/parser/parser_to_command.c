@@ -22,6 +22,14 @@ static bool token_is_empty(char const *s)
     return true;
 }
 
+static command_t *get_last(command_t *head)
+{
+    if (!head)
+        return NULL;
+    for (; command_get_next(head); head = command_get_next(head));
+    return head;
+}
+
 static int handle_token(parser_t *parser, command_t **head)
 {
     command_t *tmp = NULL;
@@ -30,7 +38,7 @@ static int handle_token(parser_t *parser, command_t **head)
     for (; separators[i].f; i++) {
         if (strcmp(parser->tokens[parser->index], separators[i].separator))
             continue;
-        tmp = ((command_f_t *)separators[i].f)(parser);
+        tmp = ((command_f_t *)separators[i].f)(parser, get_last(*head));
         break;
     }
     if (!separators[i].f)
