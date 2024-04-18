@@ -26,7 +26,7 @@ int if_terminal_to_small(shell_t *shell)
     return 0;
 }
 
-int builtin_do_builtins(command_t *command, shell_t *shell)
+int get_size_col(shell_t *shell)
 {
     int num_builtins = sizeof(builtins) / sizeof(builtins[0]);
     int size_terminal = 0;
@@ -43,9 +43,21 @@ int builtin_do_builtins(command_t *command, shell_t *shell)
     num_col = size_terminal / min_col_width;
     num_col = get_num_col(num_col, num_builtins, max_col_width, size_terminal);
     col_width = size_terminal / num_col;
+    dislpay_builtins(col_width, num_col, num_builtins);
+    return 0;
+}
+
+int builtin_do_builtins(command_t *command, shell_t *shell)
+{
+    int argc = 0;
+
     if (command == NULL || shell == NULL)
         return 84;
-    dislpay_builtins(col_width, num_col, num_builtins);
+    argc = command_get_argc(command);
+    if (argc != 1) {
+        fprintf(stderr, "builtins: Too many arguments\n");
+        return shell_set_code(shell, 1);
+    }
     shell_set_code(shell, 0);
-    return 0;
+    return get_size_col(shell);
 }
