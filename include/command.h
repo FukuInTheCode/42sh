@@ -18,6 +18,7 @@ typedef enum type_e {
     COMMAND,
     PIPELINE,
     AND,
+    OR,
     LEFT_RED,
     RIGHT_RED,
     DOUBLE_LEFT_RED,
