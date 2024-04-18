@@ -41,6 +41,9 @@ int builtin_handle_cd_exist_error(shell_t *, int);
 int builtin_handle_exit_badnum_error(command_t *, shell_t *);
 int builtin_handle_exit_exprsyn_error(command_t *, shell_t *);
 
+int dislpay_builtins(int, int, int);
+int display_builtins_small_terminal(void);
+
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
     {"builtins", builtin_do_builtins},
