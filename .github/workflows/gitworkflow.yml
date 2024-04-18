@@ -2,7 +2,7 @@ name: Workflow
 
 env:
   MIRROR_URL: git@github.com:EpitechPromo2028/B-PSU-200-LIL-2-1-42sh-tom.carlier.git
-  EXECUTABLES: mysh
+  EXECUTABLES: 42sh
 
 on:
   push:
