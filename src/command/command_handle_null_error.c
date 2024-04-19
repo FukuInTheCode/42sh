@@ -49,7 +49,7 @@ int command_handle_null_error(command_t *command, void *shell_ptr)
 
     if (type != PIPELINE && type != LEFT_RED &&
         type != DOUBLE_RIGHT_RED && type != DOUBLE_LEFT_RED &&
-        type != RIGHT_RED && type != AND)
+        type != RIGHT_RED && type != AND && type != OR)
         return 0;
     if (type == AND) {
         shell_set_code(shell_ptr, handle_and(command));
