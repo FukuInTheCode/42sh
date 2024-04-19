@@ -12,8 +12,9 @@
 int command_handle_builtins(command_t *command)
 {
     for (size_t i = 0; builtins[i].name; i++) {
-        if (!strcmp(builtins[i].name, command_get_path(command)))
+        if (!strcmp(builtins[i].name, command_get_argv(command)[0])) {
             return 1;
+        }
     }
     return 0;
 }
