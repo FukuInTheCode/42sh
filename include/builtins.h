@@ -29,6 +29,7 @@ int builtin_do_printenv(command_t *, shell_t *);
 int builtin_do_exit(command_t *, shell_t *);
 int builtin_do_colon(command_t *, shell_t *);
 int builtin_do_builtins(command_t *, shell_t *);
+int builtin_do_which(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -44,6 +45,10 @@ int builtin_handle_exit_exprsyn_error(command_t *, shell_t *);
 int dislpay_builtins(int, int, int);
 int display_builtins_small_terminal(void);
 
+bool is_builtin(char *);
+bool display_which_builtin(char *);
+bool display_which_command_not_found(char *, bool, shell_t *);
+
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
     {"builtins", builtin_do_builtins},
@@ -53,6 +58,7 @@ static builtin_t const builtins[] = {
     {"printenv", builtin_do_printenv},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
+    {"which", builtin_do_which},
     {NULL, NULL}
 };
 
