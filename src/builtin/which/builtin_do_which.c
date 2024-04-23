@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-bool get_bin_path(char *path, bool found, char *path_bin, char *argv)
+static bool get_bin_path(char *path, bool found, char *path_bin, char *argv)
 {
     for (; path != NULL && found != true; path = strtok(NULL, ":")) {
         path_bin = malloc(strlen(path) + strlen(argv) + 2);
