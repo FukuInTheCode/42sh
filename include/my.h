@@ -16,7 +16,8 @@
     #include "parser.h"
     #include "separator.h"
 
-
-int my_free_word_array(char **);
+void my_swap(char *a, char *b);
+//int my_free_word_array(char **);
+int my_char_in_str(char c, char *str);
 char **my_str_to_word_array(char *, char const *);
 size_t my_len_word_array(char **);
