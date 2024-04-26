@@ -8,6 +8,7 @@
 #pragma once
     #define SHELL_H
 
+    #include <time.h>
     #include <stdint.h>
     #include <stdbool.h>
 
@@ -17,6 +18,14 @@
     #define SYS_IN 0
     #define SYS_ERR 2
 
+typedef struct history_s {
+    char *line;
+    int id;
+    long int time;
+    struct history_s *next;
+    struct history_s *prev;
+} history_t;
+
 typedef struct shell_s {
     uint8_t exit_code;
     command_t *cmds;
@@ -25,6 +34,8 @@ typedef struct shell_s {
     int out;
     int in;
     int err;
+    history_t *history;
+    int history_id;
 } shell_t;
 
 shell_t *shell_create(void);

@@ -22,5 +22,7 @@ shell_t *shell_create(void)
     }
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
+    shell->history = NULL;
+    shell->history_id = 0;
     return shell;
 }
