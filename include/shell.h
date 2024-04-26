@@ -57,3 +57,4 @@ int shell_process_cmds_error(shell_t *);
 int shell_process_command(shell_t *, command_t *);
 int shell_process_and(shell_t *, command_t *, command_t **);
 int shell_process_or(shell_t *, command_t *, command_t **);
+int shell_process_subshell(shell_t *, command_t *, command_t **);
