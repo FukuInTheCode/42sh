@@ -19,6 +19,8 @@ typedef enum type_e {
     PIPELINE,
     AND,
     OR,
+    SUBSHELL_OPEN,
+    SUBSHELL_CLOSE,
     LEFT_RED,
     RIGHT_RED,
     DOUBLE_LEFT_RED,
@@ -44,6 +46,7 @@ typedef struct command_s {
 
 command_t *command_create(void);
 int command_destroy(command_t *);
+command_t *command_copy(command_t *);
 
 int command_set_argc(command_t *, int);
 int command_set_argv(command_t *, char **);
@@ -87,7 +90,7 @@ int command_handle_left_red(command_t *, command_t *, void *);
 int command_handle_double_left_red(command_t *, command_t *, void *);
 int command_handle_fork(command_t *);
 int command_handle_opens(command_t *);
-int command_handle_closes(command_t *);
+int command_handle_closes(command_t *, void *);
 int command_process_user_errors(command_t *, void *);
 int command_process_null_error(command_t *, command_t *, void *);
 int command_process_path(command_t *, void *);
@@ -98,6 +101,9 @@ int command_handle_null_error(command_t *, void *);
 int command_handle_output_error(command_t *, void *);
 int command_handle_input_error(command_t *, void *);
 int command_handle_name_error(command_t *, void *);
+int command_handle_badly_error(command_t *, void *);
+int command_handle_toomanyopen_error(command_t *, void *);
+int command_handle_toomanyclose_error(command_t *, void *);
 
 int command_handle_arch_error(void *, int);
 int command_handle_found_error(void *, int);
@@ -120,9 +126,12 @@ static myerror_t const status_errors[] = {
 };
 
 static myerror_t const user_errors[] = {
+    {"Too many ('s.\n", command_handle_toomanyopen_error},
+    {"Too many )'s.\n", command_handle_toomanyclose_error},
     {"Missing name for redirect.\n", command_handle_name_error},
     {"Ambiguous output redirect.\n", command_handle_output_error},
     {"Ambiguous input redirect.\n", command_handle_input_error},
+    {"Badly placed ()'s.\n", command_handle_badly_error},
     {NULL, NULL}
 };
 
