@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2024
-** builtin_do_which.c
+** builtin_do_where.c
 ** File description:
-** builtin_do_which.c
+** builtin_do_where.c
 */
 
 #include "builtins.h"
@@ -12,22 +12,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static bool get_bin_path(char *path, bool found, char *path_bin, char *argv)
+static bool get_bin_path(char *path, char *path_bin, char *argv)
 {
-    for (; path != NULL && found != true; path = strtok(NULL, ":")) {
+    int flag = 0;
+
+    for (; path != NULL; path = strtok(NULL, ":")) {
         path_bin = malloc(strlen(path) + strlen(argv) + 2);
         sprintf(path_bin, "%s/%s", path, argv);
+        printf("%s\n", path_bin);
         if (access(path_bin, X_OK) != 0)
             continue;
         printf("%s\n", path_bin);
-        found = true;
         free(path_bin);
-        return true;
+        flag += 1;
     }
+    if (flag <= 1)
+        return true;
     return false;
 }
 
-static int display_builtin_do_which(shell_t *shell, char **argv)
+static int display_builtin_do_where(shell_t *shell, char **argv)
 {
     char *all_path;
     char *path;
@@ -38,24 +42,24 @@ static int display_builtin_do_which(shell_t *shell, char **argv)
         all_path = strdup(env_get(shell->env, "PATH"));
         path = strtok(all_path, ":");
         found = false;
-        if (display_which_builtin(argv[i]))
+        if (display_where_builtin(argv[i]))
             found = true;
-        if (get_bin_path(path, found, path_bin, argv[i]))
+        if (get_bin_path(path, path_bin, argv[i]))
             found = true;
-        display_which_command_not_found(argv[i], found, shell);
+        display_where_command_not_found(argv[i], found, shell);
         free(all_path);
     }
     return 0;
 }
 
-static int which_with_no_argc(shell_t *shell)
+static int where_with_no_argc(shell_t *shell)
 {
-    dprintf(2, "which: Too few arguments.\n");
+    dprintf(2, "where: Too few arguments.\n");
     shell_set_code(shell, 1);
     return 0;
 }
 
-int builtin_do_which(command_t *command, shell_t *shell)
+int builtin_do_where(command_t *command, shell_t *shell)
 {
     int argc = 0;
     char **argv = NULL;
@@ -65,6 +69,6 @@ int builtin_do_which(command_t *command, shell_t *shell)
     argc = command_get_argc(command);
     argv = command_get_argv(command);
     if (argc == 1)
-        return which_with_no_argc(shell);
-    return display_builtin_do_which(shell, argv);
+        return where_with_no_argc(shell);
+    return display_builtin_do_where(shell, argv);
 }
