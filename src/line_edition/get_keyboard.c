@@ -19,19 +19,29 @@ line_edition_t *init_edition(void)
     return edition;
 }
 
+void find_arrow(line_edition_t *edition, char c)
+{
+    edition->line[0] = c;
+    edition->line[1] = getchar();
+    edition->line[2] = getchar();
+    edition->line[3] = 0;
+    if (edition->line[2] == 67) {
+        printf("\nC'est la flêche de droite !\n");
+    }
+}
+
 line_edition_t *getch(line_edition_t *edition)
 {
     char c = 'a';
 
     set_noncanonical_mode();
-    c = getchar();
-    if (c == 27) {
-        edition->line[0] = c;
-        edition->line[1] = getchar();
-        edition->line[2] = getchar();
-        edition->line[3] = 0;
-        restore_terminal();
-        return edition;
+    while (c != '\n') {
+        c = getchar();
+        if (c == 27) {
+            find_arrow(edition, c);
+        } else {
+            printf("%c", c);
+        }
     }
     restore_terminal();
     return edition;
@@ -43,4 +53,10 @@ line_edition_t *line_edtion_catch(void)
 
     edtion = getch(edtion);
     return edtion;
+}
+
+
+int main(void)
+{
+    line_edtion_catch();
 }
