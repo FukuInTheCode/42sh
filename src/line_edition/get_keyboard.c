@@ -25,9 +25,14 @@ void find_arrow(line_edition_t *edition, char c)
     edition->line[1] = getchar();
     edition->line[2] = getchar();
     edition->line[3] = 0;
-    if (edition->line[2] == 67) {
+    if (edition->line[2] == 67)
         printf("\nC'est la flêche de droite !\n");
-    }
+    if (edition->line[2] == 66)
+        printf("\nC'est la flêche de bas !\n");
+    if (edition->line[2] == 65)
+        printf("C'est la flêche du haut !\n");
+    if (edition->line[2] == 68)
+        printf("\nC'est la flêche de gauche !\n");
 }
 
 line_edition_t *getch(line_edition_t *edition)
