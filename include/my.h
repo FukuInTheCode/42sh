@@ -20,3 +20,4 @@
 int my_free_word_array(char **);
 char **my_str_to_word_array(char *, char const *);
 size_t my_len_word_array(char **);
+char **my_copy_word_array(char **);

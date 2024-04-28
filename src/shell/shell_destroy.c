@@ -15,6 +15,12 @@ int shell_destroy(shell_t *shell)
 {
     env_destroy(shell_get_env(shell));
     command_destroy(shell_get_cmds(shell));
+    if (shell_get_out(shell) != SYS_OUT)
+        close(shell_get_out(shell));
+    if (shell_get_in(shell) != SYS_IN)
+        close(shell_get_in(shell));
+    if (shell_get_err(shell) != SYS_ERR)
+        close(shell_get_err(shell));
     free(shell);
     return 0;
 }
