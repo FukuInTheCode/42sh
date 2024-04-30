@@ -5,5 +5,5 @@
 ** compare_arrow
 */
 
-#include "../../include/line_edition.h"
+#include "line_edition.h"
 

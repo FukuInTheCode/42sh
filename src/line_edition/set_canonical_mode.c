@@ -5,7 +5,7 @@
 ** set_canonical_mode
 */
 
-#include "../../include/line_edition.h"
+#include "line_edition.h"
 
 void restore_terminal(void)
 {

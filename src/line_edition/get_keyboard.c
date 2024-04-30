@@ -5,7 +5,7 @@
 ** get_keyboard
 */
 
-#include "../../include/line_edition.h"
+#include "line_edition.h"
 
 line_edition_t *init_edition(void)
 {
@@ -26,13 +26,19 @@ void find_arrow(line_edition_t *edition, char c)
     edition->line[2] = getchar();
     edition->line[3] = 0;
     if (edition->line[2] == 67)
-        printf("\nC'est la flêche de droite !\n");
+//        printf("\nC'est la flêche de droite !\n");
+        printf("\033[1C");
     if (edition->line[2] == 66)
-        printf("\nC'est la flêche de bas !\n");
-    if (edition->line[2] == 65)
-        printf("C'est la flêche du haut !\n");
+        //printf("\nC'est la flêche de bas !\n");
+        printf("\033[1P"); // suppr
+    if (edition->line[2] == 65) {
+        //printf("\nC'est la flêche du haut !\n");
+        printf("\033[1D");
+        printf("\033[1P");
+    }
     if (edition->line[2] == 68)
-        printf("\nC'est la flêche de gauche !\n");
+//        printf("\nC'est la flêche de gauche !\n");
+        printf("\033[1D");
 }
 
 line_edition_t *getch(line_edition_t *edition)
@@ -44,6 +50,11 @@ line_edition_t *getch(line_edition_t *edition)
         c = getchar();
         if (c == 27) {
             find_arrow(edition, c);
+        } else if (c == 127) {
+            printf("\033[1D");
+            printf("\033[1P");
+        } else if (c == 126) {
+            printf("\033[1P");
         } else {
             printf("%c", c);
         }
@@ -63,5 +74,12 @@ line_edition_t *line_edtion_catch(void)
 
 int main(void)
 {
-    line_edtion_catch();
+    line_edition_t *edition = line_edtion_catch();
+    char *line = NULL;
+    size_t size = 0;
+
+    getline(&line, &size, stdin);
+    printf("%s\n", line);
+    free(edition);
+    return 0;
 }

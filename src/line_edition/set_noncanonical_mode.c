@@ -5,7 +5,7 @@
 ** set_noncanonical_mode
 */
 
-#include "../../include/line_edition.h"
+#include "line_edition.h"
 
 void set_noncanonical_mode(void)
 {
