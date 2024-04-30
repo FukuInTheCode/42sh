@@ -12,7 +12,7 @@
 
 int shell_process_input(shell_t *shell, char const *input)
 {
-    char *new_input = get_if_variable(input, shell);
+    char *new_input = variables_format(input, shell);
 
     if (new_input == NULL)
         return 0;
