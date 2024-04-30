@@ -14,4 +14,5 @@ void set_command_auto_completion(char **commands)
         printf("%s", commands[0]);
     else
         display_command(commands);
+    my_free_word_array(commands);
 }

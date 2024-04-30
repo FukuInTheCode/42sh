@@ -49,10 +49,8 @@ char **search_command(char *arg)
     int buffer_count = 0;
 
     dir = opendir("/usr/bin");
-    if (dir == NULL) {
+    if (dir == NULL)
         perror("opendir");
-        exit(EXIT_FAILURE);
-    }
     buffer = command_find_loop(dir, arg, &buffer_count, &buffer_size);
     closedir(dir);
     return buffer;
