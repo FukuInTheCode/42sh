@@ -5,7 +5,8 @@
 ** shell_set_run.c
 */
 
-#include "my.h"
+#include "shell.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -23,5 +24,6 @@ int shell_run(shell_t *shell)
         if (shell_get_exit(shell))
             break;
     }
+    free(line);
     return 0;
 }
