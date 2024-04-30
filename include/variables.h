@@ -19,4 +19,4 @@ typedef struct variables_s {
     struct variables_s *next;
 } variables_t;
 
-char *get_if_variable(char const *, shell_t *);
+char *variables_format(char const *, shell_t *);
