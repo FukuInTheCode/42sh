@@ -9,7 +9,7 @@ NAME   = 42sh
 
 CC	   = gcc
 
-WFLAGS = -Wall -Wextra -Werror -g
+WFLAGS = -Wall -Wextra -Werror
 
 LIBS = -lm -lc
 
@@ -48,5 +48,13 @@ fclean: clean
 
 tests_run:
 	@echo -e "$(BLUE)Running tests...$(NC)"
+
+d: debug
+
+debug: CFLAGS += -g
+debug: $(NAME)
+	@valgrind --log-file=/tmp/valgrind-$(NAME) --track-fds=all \
+		--leak-check=full --show-leak-kinds=all ./$(NAME)
+	@cat /tmp/valgrind-$(NAME)
 
 re: fclean all
