@@ -38,4 +38,4 @@ int extend_buffer(char **buffer, size_t *buffer_size);
 int handle_special_char(char *buffer, int *i, char c);
 
 void do_str_left_shift(char *words, size_t n);
-void do_str_right_shift(char *words, size_t n);
+void do_str_right_shift(char *words, int n);

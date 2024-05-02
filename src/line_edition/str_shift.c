@@ -17,11 +17,11 @@ void do_str_left_shift(char *words, size_t n)
     words[i - 1] = '\0';
 }
 
-void do_str_right_shift(char *words, size_t n)
+void do_str_right_shift(char *words, int n)
 {
     size_t i;
     size_t len = strlen(words);
 
-    for (i = len; i > n; i--)
+    for (i = len; (int)i > n; i--)
         words[i + 1] = words[i];
 }

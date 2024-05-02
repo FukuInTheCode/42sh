@@ -14,20 +14,17 @@ int shell_run_edition(shell_t *shell)
 {
     char *line = NULL;
 
-    shell_handle_prompt(shell);
-    for (; 1; shell_handle_prompt(shell)) {
+    while (!shell_get_exit(shell)) {
+        shell_handle_prompt(shell);
         line = get_input();
-        if (!line)
+        if (!line) {
             return 84;
+        }
         printf("\n");
-        restore_terminal();
-        shell_clean(shell);
-        if (line[strlen(line) - 1] == '\n')
-            line[strlen(line) - 1] = 0;
         shell_process_input(shell, line);
         free(line);
-        if (shell_get_exit(shell))
-            break;
+        shell_clean(shell);
+        restore_terminal();
     }
     return 0;
 }
