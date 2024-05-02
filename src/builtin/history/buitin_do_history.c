@@ -36,8 +36,11 @@ static char *get_flag(char **argv)
     return current;
 }
 
-static int get_size(int argc, char **argv)
+static int get_size(command_t *command)
 {
+    int argc = command_get_argc(command);
+    char **argv = command_get_argv(command);
+
     if (argc == 1 || argv[argc - 1][0] == '-')
         return -1;
     for (int i = 0; argv[argc - 1][i]; i++) {
@@ -49,25 +52,43 @@ static int get_size(int argc, char **argv)
     return (atoi(argv[argc - 1]));
 }
 
+static void handle_flag(shell_t *shell, command_t *command, char *flag)
+{
+    if (my_char_is_in_str('c', flag) && my_char_is_in_str('L', flag))
+        return;
+    if (my_char_is_in_str('c', flag))
+        remove_history(shell);
+    if (my_char_is_in_str('S', flag)) {
+        if (command_get_argc(command) == 3)
+            save_history(shell, command_get_argv(command)[2]);
+        else
+            save_history(shell, HISTORY_FILE_NAME);
+        return;
+    }
+    if (my_char_is_in_str('L', flag)){
+        if (command_get_argc(command) == 3)
+            history_load_from_file(shell, command_get_argv(command)[2]);
+        else
+            history_load_from_file(shell, HISTORY_FILE_NAME);
+        return;
+    }
+    display_history(shell_get_history(shell), flag, get_size(command));
+    return;
+}
+
 int builtin_do_history(command_t *command, shell_t *shell)
 {
     char *flag;
 
-    if (command->argc > 3) {
+    if (command_get_argc(command) > 3) {
         dprintf(2, "history: Too many arguments.\n");
         return 1;
     }
-    flag = get_flag(command->argv);
-    if (flag == NULL)
+    flag = get_flag(command_get_argv(command));
+    if (flag)
+        handle_flag(shell, command, flag);
+    else
         return 1;
-    if (my_char_is_in_str('c', flag))
-        remove_history(shell);
-    if (my_char_is_in_str('S', flag)) {
-        save_history(shell->history, command->argv, command->argc);
-        free(flag);
-        return 0;
-    }
-    display_history(shell->history, flag, get_size(command->argc, command->argv));
     free(flag);
     return 0;
 }

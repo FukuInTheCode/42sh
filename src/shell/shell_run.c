@@ -18,13 +18,14 @@ int shell_run(shell_t *shell)
 
     shell_handle_prompt(shell);
     for (; getline(&line, &len, stdin) != -1; shell_handle_prompt(shell)) {
-        add_in_history(&shell->history, line, shell);
         shell_clean(shell);
         if (line[strlen(line) - 1] == '\n')
             line[strlen(line) - 1] = 0;
+        add_in_history(shell, line);
         shell_process_input(shell, line);
         if (shell_get_exit(shell))
             break;
     }
+    save_history(shell, HISTORY_FILE_NAME);
     return 0;
 }

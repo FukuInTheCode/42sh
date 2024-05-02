@@ -20,10 +20,12 @@ void display_history(history_t *history, char *flag, int nb_elt_display)
         display_history(history->next, flag, nb_elt_display - 1);
     if (!my_char_is_in_str('h', flag)) {
         time = localtime(&history->time);
-        printf("\t%i  ", history->id);
-        printf("%i:%i\t", time->tm_hour, time->tm_min);
+        printf("\t%i  %i:", history->id, time->tm_hour);
+        if (time->tm_min < 10)
+            printf("0");
+        printf("%i\t", time->tm_min);
     }
-    printf("%s", history->line);
+    printf("%s\n", history->line);
     if (history->next && my_char_is_in_str('r', flag))
         display_history(history->next, flag, nb_elt_display - 1);
 }

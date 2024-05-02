@@ -11,13 +11,15 @@
 void remove_history(shell_t *shell)
 {
     history_t *history = shell->history;
-    history_t *temp;
+    history_t *tmp;
 
-    shell->history_id = history->id;
+    if (history && history->id)
+        shell_set_history_id(shell, history->id);
     while (history) {
-        temp = history;
+        tmp = history;
         history = history->next;
-        free(temp);
+        free(tmp->line);
+        free(tmp);
     }
-    shell->history = NULL;
+    shell_set_history(shell, NULL);
 }
