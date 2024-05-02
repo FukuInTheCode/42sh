@@ -60,12 +60,10 @@ static builtin_t const builtins[] = {
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
+    {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
-    {"exit", builtin_do_exit},
-    {":", builtin_do_colon},
-    {"history", builtin_do_history},
     {"where", builtin_do_where},
     {"which", builtin_do_which},
     {NULL, NULL}
