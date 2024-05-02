@@ -22,7 +22,7 @@ typedef struct parser_s {
     bool in_double_quote;
 } parser_t;
 
-typedef command_t *(command_f_t)(parser_t *);
+typedef command_t *(command_f_t)();
 
 parser_t *parser_create(void);
 int parser_destroy(parser_t *);
@@ -50,13 +50,21 @@ command_t *parser_command_double_left(parser_t *);
 command_t *parser_command_double_right(parser_t *);
 command_t *parser_command_command(parser_t *);
 command_t *parser_command_other(parser_t *, char const *);
+command_t *parser_command_and(parser_t *, command_t *);
+command_t *parser_command_or(parser_t *, command_t *);
+command_t *parser_command_open_subshell(parser_t *);
+command_t *parser_command_close_subshell(parser_t *);
 
 static separator_t const separators[] = {
     {";", "", parser_command_end},
-    {"|", "", parser_command_pipe},
+    {"|", "|", parser_command_pipe},
     {">", ">", parser_command_right},
     {">>", "", parser_command_double_right},
     {"<", "<", parser_command_left},
     {"<<", "", parser_command_double_left},
+    {"&&", "", parser_command_and},
+    {"||", "", parser_command_or},
+    {"(", "", parser_command_open_subshell},
+    {")", "", parser_command_close_subshell},
     {NULL, NULL, NULL}
 };

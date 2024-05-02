@@ -5,7 +5,7 @@
 ## Placeholder
 ##
 
-NAME   = mysh
+NAME   = 42sh
 
 CC	   = gcc
 

@@ -9,13 +9,16 @@
 
 #include <sys/wait.h>
 
-static int process_command(command_t *cmd, shell_t *shell)
+static int process_command(command_t *cmd, shell_t *shell, command_t **curr)
 {
-    if (cmd->type != COMMAND)
-        return 0;
-    if (command_exec(cmd, (void *)shell))
-        return 0;
-    command_wait(cmd, (void *)shell);
+    if (command_get_type(cmd) == COMMAND)
+        return shell_process_command(shell, cmd);
+    if (command_get_type(cmd) == AND)
+        return shell_process_and(shell, cmd, curr);
+    if (command_get_type(cmd) == OR)
+        return shell_process_or(shell, cmd, curr);
+    if (command_get_type(cmd) == SUBSHELL_OPEN)
+        return shell_process_subshell(shell, cmd, curr);
     return 0;
 }
 
@@ -24,7 +27,7 @@ int shell_process_commands(shell_t *shell)
     command_t *cmd = shell_get_cmds(shell);
 
     for (; cmd && !shell_get_exit(shell); cmd = command_get_next(cmd)) {
-        process_command(cmd, shell);
+        process_command(cmd, shell, &cmd);
     }
     return 0;
 }

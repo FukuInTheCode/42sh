@@ -29,6 +29,9 @@ int builtin_do_printenv(command_t *, shell_t *);
 int builtin_do_exit(command_t *, shell_t *);
 int builtin_do_colon(command_t *, shell_t *);
 int builtin_do_history(command_t *, shell_t *);
+int builtin_do_builtins(command_t *, shell_t *);
+int builtin_do_which(command_t *, shell_t *);
+int builtin_do_where(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -41,15 +44,30 @@ int builtin_handle_cd_exist_error(shell_t *, int);
 int builtin_handle_exit_badnum_error(command_t *, shell_t *);
 int builtin_handle_exit_exprsyn_error(command_t *, shell_t *);
 
+int dislpay_builtins(int, int, int);
+int display_builtins_small_terminal(void);
+
+bool is_builtin(char *);
+bool display_which_builtin(char *);
+bool display_which_command_not_found(char *, bool, shell_t *);
+
+bool display_where_builtin(char *);
+bool display_where_command_not_found(char *, bool, shell_t *);
+
 static builtin_t const builtins[] = {
+    {":", builtin_do_colon},
+    {"builtins", builtin_do_builtins},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
+    {"exit", builtin_do_exit},
     {"printenv", builtin_do_printenv},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
     {"exit", builtin_do_exit},
     {":", builtin_do_colon},
     {"history", builtin_do_history},
+    {"where", builtin_do_where},
+    {"which", builtin_do_which},
     {NULL, NULL}
 };
 

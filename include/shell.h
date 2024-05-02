@@ -68,3 +68,8 @@ int shell_parse_input(shell_t *, char const *);
 int shell_process_commands(shell_t *);
 int shell_clean(shell_t *);
 int shell_process_cmds_error(shell_t *);
+
+int shell_process_command(shell_t *, command_t *);
+int shell_process_and(shell_t *, command_t *, command_t **);
+int shell_process_or(shell_t *, command_t *, command_t **);
+int shell_process_subshell(shell_t *, command_t *, command_t **);
