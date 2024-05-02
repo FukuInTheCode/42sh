@@ -44,6 +44,8 @@ int handle_special_char(char *buffer, int *i, char c)
         *i = *i - 1;
         return 1;
     }
+    if (c == BACKSPACE)
+        return 1;
     if (c == SUPPR) {
         printf("\033[1P");
         do_str_left_shift(buffer, *i + 1);
