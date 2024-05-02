@@ -6,9 +6,8 @@
 */
 
 #include "my.h"
-
 #include "env.h"
-/*
+
 int main(int argc, char **argv, char **envp)
 {
     shell_t *shell = NULL;
@@ -26,4 +25,3 @@ int main(int argc, char **argv, char **envp)
     shell_destroy(shell);
     return code;
 }
-*/
