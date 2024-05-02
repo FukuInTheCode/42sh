@@ -10,15 +10,17 @@
 
     #include <stdio.h>
     #include <stdlib.h>
-    #include <termios.h>
     #include <unistd.h>
+    #include <termios.h>
+    #include <string.h>
 
-typedef int(*function_arrows_t)();
-
-typedef struct command_arrow_s{
-    char const *name;
-    function_arrows_t f;
-} command_arrows_t;
+#define MAX_INPUT 1024
+#define LEFT 68
+#define RIGHT 67
+#define DOWN 66
+#define TOP 65
+#define SUPPR 126
+#define BACKSPACE 127
 
 typedef struct line_edition_s {
     char *line;
@@ -27,13 +29,13 @@ typedef struct line_edition_s {
 void restore_terminal(void);
 void set_noncanonical_mode(void);
 
-line_edition_t *line_edtion_catch(void);
+line_edition_t *init_edition(void);
 
-/*
-static command_arrows_t const arrows[] = {
-    {"^[[C", right_arrow_function},
-    {"^[[A", up_arrow_function},
-    {"^[[B", down_arrow_function},
-    {"^[[D", left_arrow_function},
-    {NULL, NULL}
-};*/
+char *get_input(void);
+
+int extend_buffer(char **buffer, size_t *buffer_size);
+
+int handle_special_char(char *buffer, int *i, char c);
+
+void do_str_left_shift(char *words, size_t n);
+void do_str_right_shift(char *words, size_t n);
