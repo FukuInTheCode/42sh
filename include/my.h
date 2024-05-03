@@ -22,3 +22,4 @@ char **my_str_to_word_array(char *, char const *);
 size_t my_len_word_array(char **);
 char **my_copy_word_array(char **);
 char **my_cat_word_array(char **, char **);
+int my_char_is_in_str(char c, char *str);

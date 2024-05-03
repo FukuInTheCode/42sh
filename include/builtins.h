@@ -28,6 +28,7 @@ int builtin_do_unsetenv(command_t *, shell_t *);
 int builtin_do_printenv(command_t *, shell_t *);
 int builtin_do_exit(command_t *, shell_t *);
 int builtin_do_colon(command_t *, shell_t *);
+int builtin_do_history(command_t *, shell_t *);
 int builtin_do_builtins(command_t *, shell_t *);
 int builtin_do_which(command_t *, shell_t *);
 int builtin_do_where(command_t *, shell_t *);
@@ -59,6 +60,7 @@ static builtin_t const builtins[] = {
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
+    {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},

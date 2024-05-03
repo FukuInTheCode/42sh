@@ -11,7 +11,7 @@
 
 int parser_destroy(parser_t *parser)
 {
-    free(parser->tokens);
+    my_free_word_array(parser->tokens);
     free(parser);
     return 0;
 }
