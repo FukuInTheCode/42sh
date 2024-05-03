@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <unistd.h>
 
 static char **command_realloc(char **buffer, int *buffer_size)
 {
@@ -38,7 +39,7 @@ char *is_directory_or_exec(char *name, char *path, char *arg)
         return name;
     if (S_ISDIR(file_stat.st_mode))
         name = strcat(name, "/");
-    if (file_stat.st_mode & S_IXUSR && !(S_ISDIR(file_stat.st_mode))
+    if (access(temp, X_OK) != -1 && !S_ISDIR(file_stat.st_mode)
         && find_space(arg) == 1)
         name = strcat(name, "*");
     return name;

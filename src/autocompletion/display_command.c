@@ -28,12 +28,13 @@ void display_command(char **command)
 
     if (command == NULL)
         return;
-    for (int i = 0; command[i] != NULL; i++) {
+    for (size_t i = 0; command[i] != NULL; i++) {
         printf("%s", command[i]);
         if (telltale == 6) {
             printf("\n");
             telltale = 0;
-        } else
+        }
+        if (my_len_word_array(command) - 1 != i)
             display_space(command[i], lenght);
         telltale++;
     }

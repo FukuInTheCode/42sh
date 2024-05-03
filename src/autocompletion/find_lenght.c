@@ -19,5 +19,5 @@ int find_max_lenght(char **arguments)
         if (temp > lenght)
             lenght = temp;
     }
-    return lenght + 5;
+    return lenght + 4;
 }

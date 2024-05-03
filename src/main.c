@@ -9,7 +9,6 @@
 
 #include "env.h"
 
-
 int main(int argc, char **argv, char **envp)
 {
     shell_t *shell = NULL;
