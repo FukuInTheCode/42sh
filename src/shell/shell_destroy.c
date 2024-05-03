@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "history.h"
 
 #include <env.h>
 
@@ -15,6 +16,7 @@ int shell_destroy(shell_t *shell)
 {
     env_destroy(shell_get_env(shell));
     command_destroy(shell_get_cmds(shell));
+    remove_history(shell);
     if (shell_get_out(shell) != SYS_OUT)
         close(shell_get_out(shell));
     if (shell_get_in(shell) != SYS_IN)

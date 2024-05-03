@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "history.h"
 
 #include <stdlib.h>
 
@@ -22,5 +23,8 @@ shell_t *shell_create(void)
     }
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
+    shell_set_history_id(shell, 0);
+    shell_set_history(shell, NULL);
+    history_load_from_file(shell, HISTORY_FILE_NAME);
     return shell;
 }
