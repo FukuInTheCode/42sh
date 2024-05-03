@@ -15,6 +15,8 @@ int shell_run(shell_t *shell)
     char *line = NULL;
     size_t len = 0;
 
+    if (isatty(STDIN_FILENO))
+        return shell_run_edition(shell);
     shell_handle_prompt(shell);
     for (; getline(&line, &len, stdin) != -1; shell_handle_prompt(shell)) {
         shell_clean(shell);
