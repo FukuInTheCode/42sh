@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "command.h": "c",
+        "my.h": "c",
+        "autocompletion.h": "c"
+    }
+}
