@@ -27,7 +27,7 @@ static int set_exit_code(command_t *command, shell_t *shell)
     char *end_ptr = NULL;
 
     if (command_get_argc(command) == 1) {
-        shell_set_code(shell, 1);
+        shell_set_code(shell, 0);
         return 0;
     }
     shell_set_code(shell, strtol(command_get_argv(command)[1], &end_ptr, 10));

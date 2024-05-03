@@ -36,6 +36,7 @@ static char **fill_arr(char **arr, char *s, char const *delim)
             return NULL;
         i++;
     }
+    free(dupped);
     return arr;
 }
 
