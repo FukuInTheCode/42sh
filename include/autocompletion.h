@@ -9,11 +9,17 @@
     #define AUTOCOMPLETION_H_
 
     #include <string.h>
+    #include <dirent.h>
+    #include "shell.h"
 
+char **search_command(char *, shell_t *);
+char **tabulation_alone(char *, shell_t *);
+char **command_find_loop(DIR *, char *, int **, char *);
 
-char **search_command(char *arg);
+int find_max_lenght(char **);
+int find_space(char *);
 
-int find_max_lenght(char **arguments);
-
-void display_command(char **command);
-void set_command_auto_completion(char **commands);
+void display_command(char **);
+void set_command_auto_completion(char **);
+void my_qsort(char **, size_t);
+void autocomplete_buffer(char **, char *);
