@@ -7,51 +7,104 @@
 
 #include "autocompletion.h"
 #include "my.h"
+#include "env.h"
 #include <dirent.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <errno.h>
 
-static char **command_realloc(int buffer_count,
-    char **buffer, int *buffer_size)
+static char **command_realloc(char **buffer, int *buffer_size)
 {
-    if (buffer_count >= *buffer_size) {
-        *buffer_size += 10;
-        buffer = realloc(buffer, sizeof(char *) * (*buffer_size));
-        if (buffer == NULL)
-            perror("realloc");
+    if (buffer == NULL)
+        *buffer_size = 0;
+    else {
+        *buffer_size = my_len_word_array(buffer);
     }
+    buffer = realloc(buffer, sizeof(char *) * (*buffer_size + 2));
+    if (buffer == NULL)
+        perror("realloc");
     return buffer;
 }
 
-char **command_find_loop(DIR *dir, char *arg,
-    int *buffer_count, int *buffer_size)
+char *is_directory_or_exec(char *name, char *path, char *arg)
+{
+    struct stat file_stat;
+    char *temp = malloc(sizeof(char) * strlen(path) + strlen(name) + 2);
+
+    strcpy(temp, path);
+    temp = strcat(temp, "/");
+    temp = strcat(temp, name);
+    if (stat(temp, &file_stat) == -1)
+        return name;
+    if (S_ISDIR(file_stat.st_mode))
+        name = strcat(name, "/");
+    if (file_stat.st_mode & S_IXUSR && !(S_ISDIR(file_stat.st_mode))
+        && find_space(arg) == 1)
+        name = strcat(name, "*");
+    return name;
+}
+
+char **command_find_loop(DIR *dir, char *arg, int **buffer_size, char *path)
 {
     struct dirent *entry;
-    char **buffer = NULL;
+    char **buff = NULL;
+    char *temp = NULL;
 
     entry = readdir(dir);
+    buff = command_realloc(buff, buffer_size[0]);
     while (entry != NULL) {
-        if (strncmp(entry->d_name, arg, strlen(arg)) == 0) {
-            buffer = command_realloc(*buffer_count, buffer, buffer_size);
-            buffer[*buffer_count] = strdup(entry->d_name);
-            (*buffer_count)++;
+        if (strncmp(entry->d_name, arg, strlen(arg)) == 0
+            && entry->d_name[0] != '.') {
+            temp = is_directory_or_exec(entry->d_name, path, arg);
+            buff[(*buffer_size)[1]] = strdup(temp);
+            buff[(*buffer_size)[1] + 1] = NULL;
+            buff = command_realloc(buff, buffer_size[0]);
+            (*buffer_size)[1]++;
         }
         entry = readdir(dir);
     }
-    buffer[*buffer_count] = NULL;
+    buff[(*buffer_size)[1]] = NULL;
+    return buff;
+}
+
+void reset_variables(DIR **dir, char *path, int **buffer_size)
+{
+    (*buffer_size)[0] = 0;
+    (*buffer_size)[1] = 0;
+    (*dir) = opendir(path);
+}
+
+static char **allocation_of_buffer(char **buffer, char **result)
+{
+    if (buffer == NULL) {
+        buffer = malloc(sizeof(char *) * ((my_len_word_array(result) + 1)));
+        buffer = memset(buffer, 0, sizeof(char *)
+            * ((my_len_word_array(result) + 1)));
+    }
+    buffer = my_cat_word_array(buffer, result);
     return buffer;
 }
 
-char **search_command(char *arg)
+char **search_command(char *arg, shell_t *sh)
 {
     DIR *dir;
     char **buffer = NULL;
-    int buffer_size = 0;
-    int buffer_count = 0;
+    char **pas = my_str_to_word_array(env_get(shell_get_env(sh), "PATH"), ":");
+    int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
+    char **result = NULL;
 
-    dir = opendir("/usr/bin");
-    if (dir == NULL)
-        perror("opendir");
-    buffer = command_find_loop(dir, arg, &buffer_count, &buffer_size);
-    closedir(dir);
+    buffer_size[1] = 0;
+    for (int i = 0; pas[i] != NULL; i++) {
+        reset_variables(&dir, pas[i], &buffer_size);
+        if (dir == NULL)
+            continue;
+        result = command_find_loop(dir, arg, &buffer_size, pas[i]);
+        closedir(dir);
+        if (result[0] == NULL)
+            continue;
+        buffer = allocation_of_buffer(buffer, result);
+        free(result);
+    }
+    my_free_word_array(pas);
     return buffer;
 }

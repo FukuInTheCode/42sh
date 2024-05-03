@@ -12,6 +12,8 @@ int find_max_lenght(char **arguments)
     int lenght = 0;
     int temp = 0;
 
+    if (arguments == NULL)
+        return -1;
     for (int i = 0; arguments[i] != NULL; i++) {
         temp = strlen(arguments[i]);
         if (temp > lenght)
