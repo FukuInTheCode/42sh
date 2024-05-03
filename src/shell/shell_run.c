@@ -8,6 +8,7 @@
 #include "my.h"
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 int shell_run(shell_t *shell)
 {
