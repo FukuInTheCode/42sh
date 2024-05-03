@@ -44,7 +44,7 @@ int handle_special_char(char *buffer, int *i, char c)
         *i = *i - 1;
         return 1;
     }
-    if (c == BACKSPACE)
+    if (c == BACKSPACE || c == 9)
         return 1;
     if (c == SUPPR) {
         printf("\033[1P");
