@@ -63,6 +63,7 @@ int shell_get_history_id(shell_t *);
 
 int shell_handle_prompt(shell_t *);
 int shell_run(shell_t *);
+int shell_run_edition(shell_t *shell);
 int shell_process_input(shell_t *, char const *);
 int shell_parse_input(shell_t *, char const *);
 int shell_process_commands(shell_t *);

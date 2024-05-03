@@ -16,9 +16,13 @@ static bool get_bin_path(char *path, bool found, char *path_bin, char *argv)
 {
     for (; path != NULL && found != true; path = strtok(NULL, ":")) {
         path_bin = malloc(strlen(path) + strlen(argv) + 2);
+        if (!path_bin)
+            return false;
         sprintf(path_bin, "%s/%s", path, argv);
-        if (access(path_bin, X_OK) != 0)
+        if (access(path_bin, X_OK) != 0) {
+            free(path_bin);
             continue;
+        }
         printf("%s\n", path_bin);
         found = true;
         free(path_bin);
