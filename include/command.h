@@ -114,6 +114,8 @@ int command_handle_loop_error(void *, int);
 
 int command_handle_segfault_error(void *, int);
 int command_handle_segfault_coredumped_error(void *, int);
+int command_handle_divzero_error(void *, int);
+int command_handle_divzero_coredumped_error(void *, int);
 
 int command_handle_file_exist_error(command_t *, void *);
 int command_handle_file_perm_error(command_t *, void *);
@@ -122,6 +124,9 @@ static myerror_t const status_errors[] = {
     {"Segmentation fault (core dumped)\n",
         command_handle_segfault_coredumped_error},
     {"Segmentation fault\n", command_handle_segfault_error},
+    {"Floating exception (core dumped)\n",
+        command_handle_divzero_coredumped_error},
+    {"Floating exception\n", command_handle_divzero_error},
     {NULL, NULL}
 };
 
