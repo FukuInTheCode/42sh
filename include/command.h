@@ -117,6 +117,7 @@ int command_handle_segfault_coredumped_error(void *, int);
 int command_handle_divzero_error(void *, int);
 int command_handle_divzero_coredumped_error(void *, int);
 int command_handle_brokenpipe_error(void *, int);
+int command_handle_killed_error(void *, int);
 
 int command_handle_file_exist_error(command_t *, void *);
 int command_handle_file_perm_error(command_t *, void *);
@@ -129,6 +130,7 @@ static myerror_t const status_errors[] = {
         command_handle_divzero_coredumped_error},
     {"Floating exception\n", command_handle_divzero_error},
     {"Broken pipe\n", command_handle_brokenpipe_error},
+    {"Killed\n", command_handle_killed_error},
     {NULL, NULL}
 };
 
