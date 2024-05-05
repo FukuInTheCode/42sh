@@ -9,6 +9,15 @@
 
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// shell_t *shell_create(void)
+//
+// This function creates and do necessary memory allocations
+// to execute the commands.
+//
+// RETURN VALUE : shell_t that represent the shell. If an
+// error occurs, NULL is returned
+////////////////////////////////////////////////////////////
 shell_t *shell_create(void)
 {
     shell_t *shell = calloc(1, sizeof(shell_t));
