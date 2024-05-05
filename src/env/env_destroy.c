@@ -9,6 +9,16 @@
 
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// int env_destroy(char **env)
+//
+// env -> environment of the shell
+//
+// This function destroys and free the environment passed as
+// parameter.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int env_destroy(char **env)
 {
     if (!env)
