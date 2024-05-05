@@ -8,6 +8,13 @@
 #include "my.h"
 #include "env.h"
 
+////////////////////////////////////////////////////////////
+// int shell_set_env(shell_t *shell, char **env)
+//
+// This function sets the environment of the shell.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int shell_set_env(shell_t *shell, char **env)
 {
     env_destroy(shell->env);
