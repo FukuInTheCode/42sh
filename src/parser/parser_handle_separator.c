@@ -7,6 +7,16 @@
 
 #include "my.h"
 
+////////////////////////////////////////////////////////////
+// separator_t const *parser_handle_separator(parser_t *parser, char const *token)
+//
+// parser -> all the data of the parser
+// char const *token ->
+//
+// This function returns the separator search in the token.
+//
+// RETURN VALUE : separator_t that is the separator founded
+////////////////////////////////////////////////////////////
 separator_t const *parser_handle_separator(parser_t *parser, char const *token)
 {
     if (!parser || !token)
