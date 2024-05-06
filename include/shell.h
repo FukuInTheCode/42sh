@@ -17,6 +17,12 @@
     #define SYS_IN 0
     #define SYS_ERR 2
 
+typedef struct variables_s {
+    char *assigned;
+    char *to_doux;
+    struct variables_s *next;
+} variables_t;
+
 typedef struct shell_s {
     uint8_t exit_code;
     command_t *cmds;
@@ -25,6 +31,7 @@ typedef struct shell_s {
     int out;
     int in;
     int err;
+    variables_t *head;
 } shell_t;
 
 shell_t *shell_create(void);
