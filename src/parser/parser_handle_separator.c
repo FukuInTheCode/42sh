@@ -11,7 +11,7 @@
 // separator_t const *parser_handle_separator(parser_t *parser, char const *token)
 //
 // parser -> all the data of the parser
-// char const *token ->
+// token -> current token
 //
 // This function returns the separator search in the token.
 //
