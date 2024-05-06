@@ -30,6 +30,7 @@ int builtin_do_exit(command_t *, shell_t *);
 int builtin_do_colon(command_t *, shell_t *);
 int builtin_do_builtins(command_t *, shell_t *);
 int builtin_do_which(command_t *, shell_t *);
+int builtin_do_set(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -49,6 +50,8 @@ bool is_builtin(char *);
 bool display_which_builtin(char *);
 bool display_which_command_not_found(char *, bool, shell_t *);
 
+void add_linked_list_set(char *, char *, shell_t *);
+
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
     {"builtins", builtin_do_builtins},
@@ -56,6 +59,7 @@ static builtin_t const builtins[] = {
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
     {"printenv", builtin_do_printenv},
+    {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
     {"which", builtin_do_which},
