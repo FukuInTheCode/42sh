@@ -15,6 +15,8 @@ char *get_assigned_variable(char **argv, int *i, char *assigned)
         (*i)++;
     } else if (argv[*i + 1] == NULL || strcmp(argv[*i + 1], "=") != 0)
         assigned = argv[*i];
+    if (strcmp(argv[1], "=") == 0)
+        assigned = argv[1];
     return assigned;
 }
 
