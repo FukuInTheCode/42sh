@@ -1,7 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
 ** variables.h
-**
 ** File description:
 ** .h for the variables
 */
