@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "my.h"
+#include "shell.h"
 
 #include "env.h"
 
@@ -18,6 +18,7 @@ int main(int argc, char **argv, char **envp)
         return 84;
     shell = shell_create();
     shell_set_env(shell, env_copy(envp));
+    shell_init_variable(shell);
     if (shell_run(shell) == 84) {
         shell_destroy(shell);
         return 84;
