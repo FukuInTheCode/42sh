@@ -53,6 +53,7 @@ bool display_which_command_not_found(char *, bool, shell_t *);
 void add_linked_list_set(char *, char *, shell_t *);
 char *get_assigned_variable(char **, int *, char *);
 char *get_to_doux_variable(char **a, int i, char *);
+int set_destroy(shell_t *);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
