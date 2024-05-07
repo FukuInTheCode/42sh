@@ -6,15 +6,15 @@
 */
 
 #include "my.h"
-
+#include "builtins.h"
 #include <env.h>
-
 #include <stdlib.h>
 
 int shell_destroy(shell_t *shell)
 {
     env_destroy(shell_get_env(shell));
     command_destroy(shell_get_cmds(shell));
+    set_destroy(shell);
     free(shell);
     return 0;
 }
