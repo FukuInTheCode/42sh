@@ -11,11 +11,31 @@
 #include "stdlib.h"
 #include <stdio.h>
 
+////////////////////////////////////////////////////////////
+// static separator_t const *get_separator(parser_t *parser, char const *input)
+//
+// parser -> all the data of the parser
+// input -> string that represent the input of the user
+//
+// This function returns the separator search in the input.
+//
+// RETURN VALUE : separator_t that is the separator founded
+////////////////////////////////////////////////////////////
 static separator_t const *get_separator(parser_t *parser, char const *input)
 {
     return parser_handle_separator(parser, input + parser->index);
 }
 
+////////////////////////////////////////////////////////////
+// static bool is_quoted(parser_t *parser, char const *input)
+//
+// parser -> all the data of the parser
+// input -> string that represent the input of the user
+//
+// This function detects if the input contains quotes.
+//
+// RETURN VALUE : true if there is quote otherwise false
+////////////////////////////////////////////////////////////
 static bool is_quoted(parser_t *parser, char const *input)
 {
     if (!parser_get_quote(parser) && input[parser->index] == '"')
@@ -27,6 +47,16 @@ static bool is_quoted(parser_t *parser, char const *input)
     return false;
 }
 
+////////////////////////////////////////////////////////////
+// static int add_tokens(parser_t *parser, char *to_add)
+//
+// parser -> all the data of the parser
+// to_add -> string to add in tokens
+//
+// This function adds a string in the tokens.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 static int add_tokens(parser_t *parser, char *to_add)
 {
     size_t tokens_len = my_len_word_array(parser->tokens);
@@ -39,6 +69,19 @@ static int add_tokens(parser_t *parser, char *to_add)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// static int handle_separator(parser_t *parser, char const *input,
+//    size_t current_len, separator_t *separator)
+//
+// parser -> all the data of the parser
+// input -> string that represent the input of the user
+// current_len -> length of the current in the loop
+// separator -> separator detected
+//
+// This function handles shell separators with the parser.
+//
+// RETURN VALUE : int that is 0 if all works, 84 otherwise
+////////////////////////////////////////////////////////////
 static int handle_separator(parser_t *parser, char const *input,
     size_t current_len, separator_t *separator)
 {
@@ -60,6 +103,16 @@ static int handle_separator(parser_t *parser, char const *input,
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// int parser_parse(parser_t *parser, char const *input)
+//
+// parser -> all the data of the parser
+// input -> string that represent the input of the user
+//
+// This function parse the input.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int parser_parse(parser_t *parser, char const *input)
 {
     size_t current_len = 0;
