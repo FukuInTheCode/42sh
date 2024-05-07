@@ -38,6 +38,7 @@ char **tabulation_alone(char *arg, shell_t *shell)
     if (dir == NULL)
         perror("opendir");
     buffer = command_find_loop(dir, "", &buffer_size, ".");
+    free(buffer_size);
     closedir(dir);
     return buffer;
 }

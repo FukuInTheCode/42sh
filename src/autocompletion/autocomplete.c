@@ -29,5 +29,6 @@ char *autocompletion(char *buffer, shell_t *shell)
         display_command(commands, my_len_word_array(commands));
     else if (strncmp(buffer, commands[0], strlen(commands[0])) != 0)
         buffer = autocomplete_buffer(commands, buffer);
+    my_free_word_array(commands);
     return buffer;
 }

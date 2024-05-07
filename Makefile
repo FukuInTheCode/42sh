@@ -9,7 +9,7 @@ NAME   = 42sh
 
 CC	   = gcc
 
-WFLAGS = -Wall -Wextra -Werror -g
+WFLAGS = -Wall -Wextra -g
 
 LIBS = -lm -lc
 

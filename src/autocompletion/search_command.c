@@ -16,15 +16,18 @@
 
 static char **command_realloc(char **buffer, int *buffer_size)
 {
+    char **temp = my_copy_word_array(buffer);
+
     if (buffer == NULL)
         *buffer_size = 0;
     else {
         *buffer_size = my_len_word_array(buffer);
     }
-    buffer = realloc(buffer, sizeof(char *) * (*buffer_size + 2));
-    if (buffer == NULL)
+    temp = realloc(temp, sizeof(char *) * (*buffer_size + 2));
+    if (temp == NULL)
         perror("realloc");
-    return buffer;
+    my_free_word_array(buffer);
+    return temp;
 }
 
 char *is_directory_or_exec(char *name, char *path, char *arg)
@@ -42,6 +45,7 @@ char *is_directory_or_exec(char *name, char *path, char *arg)
     if (access(temp, X_OK) != -1 && !S_ISDIR(file_stat.st_mode)
         && find_space(arg) == 1)
         name = strcat(name, "*");
+    free(temp);
     return name;
 }
 
@@ -77,20 +81,23 @@ void reset_variables(DIR **dir, char *path, int **buffer_size)
 
 static char **allocation_of_buffer(char **buffer, char **result)
 {
-    if (buffer == NULL) {
-        buffer = malloc(sizeof(char *) * ((my_len_word_array(result) + 1)));
-        buffer = memset(buffer, 0, sizeof(char *)
+    char **temp = my_copy_word_array(buffer);
+
+    if (temp == NULL) {
+        temp = malloc(sizeof(char *) * ((my_len_word_array(result) + 1)));
+        temp = memset(temp, 0, sizeof(char *)
             * ((my_len_word_array(result) + 1)));
     }
-    buffer = my_cat_word_array(buffer, result);
-    return buffer;
+    temp = my_cat_word_array(temp, result);
+    my_free_word_array(buffer);
+    return temp;
 }
 
 char **search_command(char *arg, shell_t *sh)
 {
     DIR *dir;
     char **buffer = NULL;
-    char **pas = my_str_to_word_array(env_get(shell_get_env(sh), "PATH"), ":");
+    char **pas = path_handle(arg, sh);
     int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
     char **result = NULL;
 
@@ -101,11 +108,14 @@ char **search_command(char *arg, shell_t *sh)
             continue;
         result = command_find_loop(dir, arg, &buffer_size, pas[i]);
         closedir(dir);
-        if (result[0] == NULL)
+        if (result[0] == NULL) {
+            my_free_word_array(result);
             continue;
+        }
         buffer = allocation_of_buffer(buffer, result);
-        free(result);
+        my_free_word_array(result);
     }
+    free(buffer_size);
     my_free_word_array(pas);
     return buffer;
 }
