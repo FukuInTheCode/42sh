@@ -12,4 +12,10 @@
     #include <stdio.h>
     #include <string.h>
 
-char *get_if_variable(char const *, shell_t *);
+typedef struct variables_s {
+    char *assigned;
+    char *need_to_do;
+    struct variables_s *next;
+} variables_t;
+
+char *variables_format(char const *, shell_t *);
