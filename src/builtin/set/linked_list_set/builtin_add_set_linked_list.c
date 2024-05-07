@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "shell.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -42,14 +43,16 @@ static void browse_linked_list(variables_t *current, variables_t *new,
     char *assigned, char *need_to_do)
 {
     bool is_in = false;
+    variables_t *prev = NULL;
 
-    while (current->next != NULL) {
+    while (current != NULL) {
         if (change_value(current, assigned, need_to_do) == 0)
             is_in = true;
+        prev = current;
         current = current->next;
     }
     if (is_in == false)
-        current->next = new;
+        prev->next = new;
     else {
         free(new->assigned);
         free(new->to_doux);
