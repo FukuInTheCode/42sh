@@ -21,7 +21,6 @@ static bool get_bin_path(char *path, char *path_bin, char *argv)
         if (!path_bin)
             return 84;
         sprintf(path_bin, "%s/%s", path, argv);
-        printf("%s\n", path_bin);
         if (access(path_bin, X_OK) != 0) {
             free(path_bin);
             continue;
