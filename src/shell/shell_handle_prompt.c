@@ -6,8 +6,10 @@
 */
 
 #include "my.h"
+#include "shell.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 int shell_handle_prompt(shell_t *shell)
 {
@@ -15,6 +17,11 @@ int shell_handle_prompt(shell_t *shell)
         return 84;
     if (!isatty(0))
         return 0;
-    printf("$> ");
+    for (variables_t *tmp = shell->head; tmp; tmp = tmp->next) {
+        if (strcmp(tmp->assigned, "prompt") || !tmp->to_doux)
+            continue;
+        printf("%s", tmp->to_doux);
+        return 0;
+    }
     return 0;
 }
