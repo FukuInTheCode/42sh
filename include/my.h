@@ -23,3 +23,5 @@ size_t my_len_word_array(char **);
 char **my_copy_word_array(char **);
 
 int my_char_is_in_str(char c, char const *str);
+
+char **my_cat_word_array(char **, char **);

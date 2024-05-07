@@ -10,6 +10,17 @@
 #include <string.h>
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// char **env_copy(char **env)
+//
+// env -> environment of the shell
+//
+// This function copies and returns the environment passed
+// as parameter.
+//
+// RETURN VALUE : char ** that represent the copied env. NULL
+// is returned is an error occurs
+////////////////////////////////////////////////////////////
 char **env_copy(char **env)
 {
     char **new = NULL;

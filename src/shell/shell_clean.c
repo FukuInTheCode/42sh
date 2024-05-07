@@ -7,6 +7,16 @@
 
 #include "my.h"
 
+////////////////////////////////////////////////////////////
+// int shell_clean(shell_t *shell)
+//
+// shell -> structure that contains all the data of the shell
+//
+// This function cleans the shell, file descriptors stdin stdout
+// stderr and the commands.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int shell_clean(shell_t *shell)
 {
     shell_set_out(shell, SYS_OUT);
