@@ -19,7 +19,6 @@ static bool get_bin_path(char *path, bool found, char *path_bin, char *argv)
         path_bin = malloc(strlen(path) + strlen(argv) + 2);
         if (!path_bin)
             return false;
-
         sprintf(path_bin, "%s/%s", path, argv);
         if (access(path_bin, X_OK) != 0) {
             free(path_bin);
