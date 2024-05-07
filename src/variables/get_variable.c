@@ -26,7 +26,7 @@ static char *display_var_error(char *var_name, shell_t *shell)
 
 static size_t get_var_len(char const *input)
 {
-    size_t len= 0;
+    size_t len = 0;
 
     if (*input == '$')
         return 1;
@@ -58,10 +58,27 @@ static char *handle_special_vars(char const *var_name,
     return value;
 }
 
+static char *handle_local_vars(char const *var_name, shell_t *shell)
+{
+    variables_t *vars = shell->head;
+
+    for (; vars; vars = vars->next) {
+        if (strcmp(vars->assigned, var_name))
+            continue;
+        if (vars->to_doux)
+            return strdup(vars->to_doux);
+        return strdup("");
+    }
+    return 0;
+}
+
 static char *get_var_value(char const *var_name, shell_t *shell)
 {
     char *value = handle_special_vars(var_name, shell, NULL);
 
+    if (value)
+        return value;
+    value = handle_local_vars(var_name, shell);
     if (value)
         return value;
     if (!strcmp(var_name, "path")) {
