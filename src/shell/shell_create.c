@@ -20,6 +20,7 @@ shell_t *shell_create(void)
         free(shell);
         return NULL;
     }
+    shell->head = NULL;
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
     return shell;
