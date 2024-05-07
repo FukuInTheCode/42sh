@@ -30,7 +30,9 @@ static int change_value(variables_t *current, char *assigned, char *need_to_do)
 {
     if (strcmp(assigned, current->assigned) == 0) {
         free(current->to_doux);
-        current->to_doux = strdup(need_to_do);
+        current->to_doux = NULL;
+        if (need_to_do)
+            current->to_doux = strdup(need_to_do);
         return 0;
     }
     return 1;
