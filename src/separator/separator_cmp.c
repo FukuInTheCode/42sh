@@ -9,6 +9,17 @@
 
 #include <string.h>
 
+////////////////////////////////////////////////////////////
+// bool separator_cmp(separator_t const *sep, char const *s)
+//
+// sep -> separator used for reference
+// s -> string to compare
+//
+// This function compares a separator and a string.
+//
+// RETURN VALUE : bool that is true if the separator correspond
+// to the string, false otherwise
+////////////////////////////////////////////////////////////
 bool separator_cmp(separator_t const *sep, char const *s)
 {
     if (!s || !sep)

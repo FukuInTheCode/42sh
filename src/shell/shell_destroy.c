@@ -12,6 +12,15 @@
 
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// int shell_destroy(shell_t *shell)
+//
+// shell -> structure that contains all the data of the shell
+//
+// This function frees all the shell values.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int shell_destroy(shell_t *shell)
 {
     env_destroy(shell_get_env(shell));
