@@ -48,8 +48,11 @@ static void browse_linked_list(variables_t *current, variables_t *new,
     }
     if (is_in == false)
         current->next = new;
-    else
+    else {
+        free(new->assigned);
+        free(new->to_doux);
         free(new);
+    }
 }
 
 void add_linked_list_set(char *assigned, char *need_to_do, shell_t *shell)
