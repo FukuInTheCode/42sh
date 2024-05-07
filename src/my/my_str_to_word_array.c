@@ -63,6 +63,15 @@ static int count_size_of_word(char *str, int i, char const *del)
     return (nb - i - quote_nb);
 }
 
+static int get_size_of_word_with_quote(char *str, int i, char const *del)
+{
+    int nb = i;
+
+    while (!my_char_is_in_str(str[nb], del) && str[nb])
+        nb++;
+    return (nb - i);
+}
+
 static int change_i(int i, char *str, char const *del)
 {
     while (my_char_is_in_str(str[i], del))
@@ -121,8 +130,7 @@ char **my_str_to_word_array(char *str, char const *del)
         word_array[ind] = add_in_word_array(word_size, i, str);
         if (word_array[ind] == NULL)
             return NULL;
-        if (str[i] == '"' || str[i] == '\'')
-            word_size += 2;
+        word_size = get_size_of_word_with_quote(str, i, del);
         ind++;
     }
     return (word_array);
