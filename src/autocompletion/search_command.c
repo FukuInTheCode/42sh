@@ -90,7 +90,7 @@ char **search_command(char *arg, shell_t *sh)
 {
     DIR *dir;
     char **buffer = NULL;
-    char **pas = my_str_to_word_array(env_get(shell_get_env(sh), "PATH"), ":");
+    char **pas = path_handle(arg, sh);
     int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
     char **result = NULL;
 

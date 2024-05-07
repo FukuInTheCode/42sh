@@ -15,6 +15,7 @@
 char **search_command(char *, shell_t *);
 char **tabulation_alone(char *, shell_t *);
 char **command_find_loop(DIR *, char *, int **, char *);
+char **path_handle(char *, shell_t *);
 
 char *autocompletion(char *, shell_t *);
 char *autocomplete_buffer(char **, char *);

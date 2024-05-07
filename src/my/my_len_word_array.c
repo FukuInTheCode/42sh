@@ -11,6 +11,8 @@ size_t my_len_word_array(char **arr)
 {
     size_t len = 0;
 
+    if (arr == NULL)
+        return 0;
     for (; arr[len]; len++);
     return len;
 }
