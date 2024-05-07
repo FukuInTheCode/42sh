@@ -13,6 +13,7 @@
     #include <unistd.h>
     #include <termios.h>
     #include <string.h>
+    #include <shell.h>
 
 #define MAX_INPUT 1024
 #define LEFT 68
@@ -31,11 +32,11 @@ void set_noncanonical_mode(void);
 
 line_edition_t *init_edition(void);
 
-char *get_input(void);
+char *get_input(shell_t *shell);
 
 int extend_buffer(char **buffer, size_t *buffer_size);
 
-int handle_special_char(char *buffer, int *i, char c);
+int handle_special_char(char **buffer, int *i, char c, shell_t *shell);
 
 void do_str_left_shift(char *words, size_t n);
 void do_str_right_shift(char *words, int n);

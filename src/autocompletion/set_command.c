@@ -13,6 +13,6 @@ void set_command_auto_completion(char **commands)
     if (my_len_word_array(commands) == 1)
         printf("%s", commands[0]);
     else
-        display_command(commands);
+        display_command(commands, my_len_word_array(commands));
     my_free_word_array(commands);
 }
