@@ -31,6 +31,7 @@ int builtin_do_colon(command_t *, shell_t *);
 int builtin_do_builtins(command_t *, shell_t *);
 int builtin_do_which(command_t *, shell_t *);
 int builtin_do_set(command_t *, shell_t *);
+int builtin_do_unset(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -54,6 +55,7 @@ void add_linked_list_set(char *, char *, shell_t *);
 char *get_assigned_variable(char **, int *, char *);
 char *get_to_doux_variable(char **a, int i, char *);
 int set_destroy(shell_t *);
+void remove_node_linked_list_set(shell_t *shell, char *assigned);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
@@ -64,6 +66,7 @@ static builtin_t const builtins[] = {
     {"printenv", builtin_do_printenv},
     {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
+    {"unset", builtin_do_unset},
     {"unsetenv", builtin_do_unsetenv},
     {"which", builtin_do_which},
     {NULL, NULL}
