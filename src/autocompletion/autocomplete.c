@@ -28,25 +28,27 @@ char **path_handle(char *arg, shell_t *shell)
     return send;
 }
 
-char *autocomplete_buffer(char **buffer, char *arg)
+char *autocomplete_buffer(char **buffer, int len, int *i)
 {
-    int lenght = strlen(arg);
-
-    printf("\033[%dD", lenght);
-    printf("%s", arg);
-    printf("%s", *buffer + lenght);
-    printf("\033[%dC", (int)strlen(*buffer) - lenght);
+    printf("\033[%dD", len + 3);
+    printf("$> ");
+    printf("%s", buffer[0]);
+    *i = (int)strlen(buffer[0]);
     return buffer[0];
 }
 
-char *autocompletion(char *buffer, shell_t *shell)
+char *autocompletion(char *buffer, shell_t *shell, int *i)
 {
     char **commands = NULL;
+    int len = 0;
 
     commands = tabulation_alone(buffer, shell);
     if (my_len_word_array(commands) != 1)
-        display_command(commands, my_len_word_array(commands));
-    else if (strncmp(buffer, commands[0], strlen(commands[0])) != 0)
-        buffer = autocomplete_buffer(commands, buffer);
+        display_command(commands, my_len_word_array(commands), buffer);
+    else if (strncmp(buffer, commands[0], strlen(commands[0])) != 0) {
+        len = (int)strlen(buffer);
+        memset(buffer, 0, sizeof(char) * (int)strlen(buffer));
+        strcat(buffer, autocomplete_buffer(commands, len, i));
+    }
     return buffer;
 }

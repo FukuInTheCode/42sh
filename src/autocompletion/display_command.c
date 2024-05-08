@@ -32,7 +32,7 @@ void display_space(char *argument, int max_lenght)
     }
 }
 
-void display_command(char **command, int size)
+void display_command(char **command, int size, char *buffer)
 {
     int telltale = 1;
     int lenght = find_max_lenght(command);
@@ -53,4 +53,5 @@ void display_command(char **command, int size)
     if (telltale != 1)
         printf("\n");
     printf("$> ");
+    printf("%s", buffer);
 }

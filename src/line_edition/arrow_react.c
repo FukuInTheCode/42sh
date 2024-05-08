@@ -33,12 +33,8 @@ void do_arrow_react(char c, int *i, char *buffer)
     free(edition);
 }
 
-int handle_special_char(char **buffer, int *i, char c, shell_t *shell)
+static int handle_suppr_and_back(char **buffer, int *i, char c, shell_t *shell)
 {
-    if (c == 27) {
-        do_arrow_react(c, i, *buffer);
-        return 1;
-    }
     if (c == BACKSPACE && *i != 0) {
         printf("\033[1D\033[1P");
         do_str_left_shift(*buffer, *i);
@@ -48,7 +44,7 @@ int handle_special_char(char **buffer, int *i, char c, shell_t *shell)
     if (c == BACKSPACE)
         return 1;
     if (c == 9) {
-        *buffer = autocompletion(*buffer, shell);
+        *buffer = autocompletion(*buffer, shell, i);
         return 1;
     }
     if (c == SUPPR) {
@@ -56,5 +52,16 @@ int handle_special_char(char **buffer, int *i, char c, shell_t *shell)
         do_str_left_shift(*buffer, *i + 1);
         return 1;
     }
+    return 0;
+}
+
+int handle_special_char(char **buffer, int *i, char c, shell_t *shell)
+{
+    if (c == 27) {
+        do_arrow_react(c, i, *buffer);
+        return 1;
+    }
+    if (handle_suppr_and_back(buffer, i, c, shell) == 1)
+        return 1;
     return 0;
 }
