@@ -108,6 +108,8 @@ static char *add_in_word_array(int word_size, int i, char *str)
     char quote = ' ';
     bool is_quote = false;
 
+    if (word == NULL)
+        return NULL;
     for (int j = i; (j - i) < word_size + quote_nb; j++) {
         if (is_quote == false)
             quote = ' ';
@@ -135,8 +137,6 @@ char **my_str_to_word_array(char *str, char const *del)
     for (int i = 0; i < size; i += word_size + 1) {
         i = change_i(i, str, del);
         word_size = count_size_of_word(str, i, del);
-        if (word_size == 0)
-            break;
         word_array[ind] = add_in_word_array(word_size, i, str);
         if (word_array[ind] == NULL)
             return NULL;
