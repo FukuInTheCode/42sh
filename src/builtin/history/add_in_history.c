@@ -36,7 +36,7 @@ static history_t *create_new_history_node(shell_t *shell, char *line)
     if (new->next)
         new->id = new->next->id + 1;
     else {
-        new->id = 0;
+        new->id = shell_get_history_id(shell);
         shell_set_history_id(shell, shell_get_history_id(shell) + 1);
     }
     return new;
