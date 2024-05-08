@@ -66,9 +66,19 @@ static int count_size_of_word(char *str, int i, char const *del)
 static int get_size_of_word_with_quote(char *str, int i, char const *del)
 {
     int nb = i;
+    bool is_quote = false;
+    char quote = ' ';
 
-    while (!my_char_is_in_str(str[nb], del) && str[nb])
+    while ((!my_char_is_in_str(str[nb], del) || is_quote == true) && str[nb]){
+        if ((str[nb] == '"' && (quote == ' ' || quote == '"')) ||
+        (str[nb] == '\'' && (quote == ' ' || quote == '\''))) {
+            is_quote = change_is_quote(is_quote);
+            quote = str[nb];
+        }
+        if (is_quote == false)
+            quote = ' ';
         nb++;
+    }
     return (nb - i);
 }
 
