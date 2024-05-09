@@ -33,15 +33,17 @@ void save_history(shell_t *shell, char *file_name)
     history_load_from_file(shell, file_name);
     while (current_history->next)
         current_history = current_history->next;
-    while (current_history->prev) {
+    for (; current_history->prev; current_history = current_history->prev) {
         add_in_history(shell, current_history->line);
         shell_get_history(shell)->time = current_history->time;
-        current_history = current_history->prev;
     }
     add_in_history(shell, current_history->line);
     shell_get_history(shell)->time = current_history->time;
     fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
     write_in_file(shell_get_history(shell), fd);
-    close(fd);
+    if (fd == -1)
+        remove_history(shell);
+    else
+        close(fd);
     shell_set_history(shell, current_history);
 }
