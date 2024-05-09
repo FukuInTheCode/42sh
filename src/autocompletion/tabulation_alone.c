@@ -31,6 +31,7 @@ char **tabulation_alone(char *arg, shell_t *shell)
     int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
 
     if (find_space(arg) == 0) {
+        free(buffer_size);
         buffer = search_command(arg, shell);
         return buffer;
     }
@@ -38,6 +39,7 @@ char **tabulation_alone(char *arg, shell_t *shell)
     if (dir == NULL)
         perror("opendir");
     buffer = command_find_loop(dir, "", &buffer_size, ".");
+    free(buffer_size);
     closedir(dir);
     return buffer;
 }
