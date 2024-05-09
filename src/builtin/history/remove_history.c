@@ -7,10 +7,11 @@
 
 #include <stdlib.h>
 #include "shell.h"
+#include <stdio.h>
 
 void remove_history(shell_t *shell)
 {
-    history_t *history = shell->history;
+    history_t *history = shell_get_history(shell);
     history_t *tmp;
 
     if (history && history->id)

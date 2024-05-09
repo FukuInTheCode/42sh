@@ -41,7 +41,8 @@ static void parse_file(shell_t *shell, FILE *file)
     size_t n = 0;
     long int time;
 
-    while (getline(&buffer, &n, file) != -1 && buffer) {
+    for (int size = 0; getline(&buffer, &n, file) != -1 && buffer
+    && size < 100; size++) {
         if (!is_number(buffer))
             continue;
         time = get_time(buffer);

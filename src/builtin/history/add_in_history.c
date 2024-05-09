@@ -12,14 +12,19 @@
 static void remove_in_history(history_t *history, char *line)
 {
     history_t *tmp;
+    int size = 0;
 
     if (history == NULL || history->next == NULL)
         return;
-    while (history->next->next && strcmp(history->next->line, line) != 0)
+    while (history->next->next && strcmp(history->next->line, line) != 0
+    && size <= 100) {
         history = history->next;
-    if (strcmp(history->next->line, line) == 0) {
+        size++;
+    }
+    if (size >= 100 || strcmp(history->next->line, line) == 0) {
         tmp = history->next;
         history->next = history->next->next;
+        free(tmp->line);
         free(tmp);
     }
     return;
