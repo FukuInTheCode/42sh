@@ -32,6 +32,7 @@ int builtin_do_history(command_t *, shell_t *);
 int builtin_do_builtins(command_t *, shell_t *);
 int builtin_do_which(command_t *, shell_t *);
 int builtin_do_where(command_t *, shell_t *);
+int builtin_do_repeat(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -62,6 +63,7 @@ static builtin_t const builtins[] = {
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
+    {"repeat", builtin_do_repeat},
     {"setenv", builtin_do_setenv},
     {"unsetenv", builtin_do_unsetenv},
     {"where", builtin_do_where},
