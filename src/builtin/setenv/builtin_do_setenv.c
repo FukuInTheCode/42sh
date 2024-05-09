@@ -48,6 +48,6 @@ int builtin_do_setenv(command_t *command, shell_t *shell)
         return 0;
     }
     shell_set_env(shell, env_add(shell->env, argv[1], argv[2]));
-    shell_set_code(shell, 1);
+    shell_set_code(shell, 0);
     return 0;
 }

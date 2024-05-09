@@ -14,6 +14,7 @@ int command_destroy(command_t *command)
         return 0;
     command_destroy(command_get_next(command));
     my_free_word_array(command_get_argv(command));
+    free(command_get_path(command));
     free(command);
     return 0;
 }
