@@ -29,7 +29,7 @@ static bool get_bin_path(char *path, char *path_bin, char *argv)
         free(path_bin);
         flag += 1;
     }
-    if (flag <= 1)
+    if (flag >= 1)
         return true;
     return false;
 }
@@ -42,6 +42,8 @@ static int display_builtin_do_where(shell_t *shell, char **argv)
     bool found = false;
 
     for (int i = 1; argv[i] != NULL; i++) {
+        if (display_where_with_invalid_caract(argv[i], shell))
+            found = true;
         all_path = strdup(env_get(shell->env, "PATH"));
         path = strtok(all_path, ":");
         found = false;
@@ -49,7 +51,7 @@ static int display_builtin_do_where(shell_t *shell, char **argv)
             found = true;
         if (get_bin_path(path, path_bin, argv[i]))
             found = true;
-        display_where_command_not_found(argv[i], found, shell);
+        display_where_command_not_found(found, shell);
         free(all_path);
     }
     return 0;
