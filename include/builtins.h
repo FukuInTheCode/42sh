@@ -52,7 +52,8 @@ bool display_which_builtin(char *);
 bool display_which_command_not_found(char *, bool, shell_t *);
 
 bool display_where_builtin(char *);
-bool display_where_command_not_found(char *, bool, shell_t *);
+bool display_where_command_not_found(bool, shell_t *);
+int display_where_with_invalid_caract(char *, shell_t *);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
