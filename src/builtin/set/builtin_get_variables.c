@@ -20,7 +20,7 @@ char *get_assigned_variable(char **argv, int *i, char *assigned)
     return assigned;
 }
 
-char *get_to_doux_variable(char **argv, int i, char *need_to_do)
+char *get_to_do_variable(char **argv, int i, char *need_to_do)
 {
     if (strcmp(argv[i - 1], "=") == 0)
         need_to_do = argv[i];

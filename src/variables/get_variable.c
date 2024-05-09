@@ -65,8 +65,8 @@ static char *handle_local_vars(char const *var_name, shell_t *shell)
     for (; vars; vars = vars->next) {
         if (strcmp(vars->assigned, var_name))
             continue;
-        if (vars->to_doux)
-            return strdup(vars->to_doux);
+        if (vars->to_do)
+            return strdup(vars->to_do);
         return strdup("");
     }
     return 0;

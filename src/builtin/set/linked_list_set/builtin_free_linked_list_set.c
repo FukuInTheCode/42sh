@@ -18,7 +18,7 @@ int set_destroy(shell_t *shell)
     while (current != NULL) {
         next = current->next;
         free(current->assigned);
-        free(current->to_doux);
+        free(current->to_do);
         free(current);
         current = next;
     }

@@ -19,7 +19,7 @@
 
 typedef struct variables_s {
     char *assigned;
-    char *to_doux;
+    char *to_do;
     struct variables_s *next;
 } variables_t;
 

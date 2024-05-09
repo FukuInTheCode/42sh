@@ -28,8 +28,8 @@ static int print_vars(shell_t *shell)
 {
     for (variables_t *tmp = shell->head; tmp; tmp = tmp->next) {
         printf("%s\t", tmp->assigned);
-        if (tmp->to_doux)
-            printf("%s", tmp->to_doux);
+        if (tmp->to_do)
+            printf("%s", tmp->to_do);
         printf("\n");
     }
     return 0;
@@ -50,7 +50,7 @@ int builtin_do_set(command_t *command, shell_t *shell)
         assigned = NULL;
         need_to_do = NULL;
         assigned = get_assigned_variable(argv, &i, assigned);
-        need_to_do = get_to_doux_variable(argv, i, need_to_do);
+        need_to_do = get_to_do_variable(argv, i, need_to_do);
         if (get_if_error(shell, assigned) == 84)
             return 1;
         add_linked_list_set(assigned, need_to_do, shell);

@@ -21,19 +21,19 @@ static variables_t *create_node_set(char *assigned, char *need_to_do)
         return NULL;
     new->assigned = strdup(assigned);
     if (need_to_do != NULL)
-        new->to_doux = strdup(need_to_do);
+        new->to_do = strdup(need_to_do);
     else
-        new->to_doux = NULL;
+        new->to_do = NULL;
     return new;
 }
 
 static int change_value(variables_t *current, char *assigned, char *need_to_do)
 {
     if (strcmp(assigned, current->assigned) == 0) {
-        free(current->to_doux);
-        current->to_doux = NULL;
+        free(current->to_do);
+        current->to_do = NULL;
         if (need_to_do)
-            current->to_doux = strdup(need_to_do);
+            current->to_do = strdup(need_to_do);
         return 0;
     }
     return 1;
@@ -55,7 +55,7 @@ static void browse_linked_list(variables_t *current, variables_t *new,
         prev->next = new;
     else {
         free(new->assigned);
-        free(new->to_doux);
+        free(new->to_do);
         free(new);
     }
 }
