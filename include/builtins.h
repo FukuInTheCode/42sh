@@ -60,7 +60,8 @@ char *get_to_do_variable(char **a, int i, char *);
 int set_destroy(shell_t *);
 void remove_node_linked_list_set(shell_t *shell, char *assigned);
 bool display_where_builtin(char *);
-bool display_where_command_not_found(char *, bool, shell_t *);
+bool display_where_command_not_found(bool found, shell_t *);
+int display_where_with_invalid_caract(char *, shell_t *);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
