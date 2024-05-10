@@ -34,6 +34,7 @@ typedef struct shell_s {
     int out;
     int in;
     int err;
+    history_t *current_h;
     history_t *history;
     int history_id;
 } shell_t;
