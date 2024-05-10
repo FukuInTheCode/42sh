@@ -1,5 +1,8 @@
+<div align="center">
+
 <img width="650" src="https://drive.google.com/uc?export=view&id=1Enwe0OW9wRdDQNePTdth3RHlzxgeDwnQ">
 
+</div>
 
 # 42sh
 > Life, the universe, and especially the rest
