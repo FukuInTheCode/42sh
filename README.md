@@ -1,4 +1,4 @@
-<img width="550" src="https://drive.google.com/uc?export=view&id=1Enwe0OW9wRdDQNePTdth3RHlzxgeDwnQ">
+<img width="650" src="https://drive.google.com/uc?export=view&id=1Enwe0OW9wRdDQNePTdth3RHlzxgeDwnQ">
 
 
 # 42sh
