@@ -42,6 +42,7 @@ int builtin_do_bg(command_t *, shell_t *);
 int builtin_do_bindkey(command_t *, shell_t *);
 int builtin_do_break(command_t *, shell_t *);
 int builtin_do_breaksw(command_t *, shell_t *);
+int builtin_do_case(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -72,7 +73,6 @@ int display_where_with_invalid_caract(char *, shell_t *);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
-    {"builtins", builtin_do_builtins},
     {"@", builtin_do_at},
     {"alias", builtin_do_alias},
     {"alloc", builtin_do_alloc},
@@ -80,6 +80,8 @@ static builtin_t const builtins[] = {
     {"bindkey", builtin_do_bindkey},
     {"break", builtin_do_break},
     {"breaksw", builtin_do_breaksw},
+    {"builtins", builtin_do_builtins},
+    {"case", builtin_do_case},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
