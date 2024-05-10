@@ -29,6 +29,9 @@ int shell_run_edition(shell_t *shell)
         free(line);
         shell_clean(shell);
         restore_terminal();
+        if (shell_get_exit(shell))
+            break;
     }
+    save_history(shell, HISTORY_FILE_NAME);
     return 0;
 }

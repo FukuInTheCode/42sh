@@ -34,9 +34,9 @@ void do_arrow_react(char c, int *i, char *buffer, shell_t *shell)
             shell->current_h = shell->current_h->next;
         }*/
         if (shell->current_h) {
-            printf("\033[%dD", (int)strlen(buffer));
+            printf("\033[%dD", (int)strlen(buffer) + 3);
             printf("\033[K");
-            //printf("$> ");
+            printf("$> ");
             printf("%s", shell->current_h->line);
             memset(buffer, 0, sizeof(char) * strlen(buffer));
             strcat(buffer, shell->current_h->line);
@@ -52,14 +52,14 @@ void do_arrow_react(char c, int *i, char *buffer, shell_t *shell)
             printf("%s\n", shell->current_h->prev->line);
             shell->current_h = shell->current_h->prev;
         }
-        /*if (shell->current_h) {
+        if (shell->current_h) {
             printf("%s\n", shell->current_h->line);
         }
         if (shell->current_h && !shell->current_h->prev) {
             printf("\033[%dD", (int)strlen(buffer));
             for (int j = 0; j != (int)strlen(shell->current_h->line); j++)
                 printf(" ");
-        }*/
+        }
     }
     free(edition->line);
     free(edition);

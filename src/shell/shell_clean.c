@@ -9,6 +9,7 @@
 
 int shell_clean(shell_t *shell)
 {
+    shell->current_h = NULL;
     shell_set_out(shell, SYS_OUT);
     shell_set_in(shell, SYS_IN);
     shell_set_err(shell, SYS_ERR);
