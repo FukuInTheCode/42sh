@@ -15,4 +15,3 @@ int builtin_do_unlimit(command_t *command, shell_t *shell)
     shell_set_code(shell, 1);
     return 0;
 }
-
