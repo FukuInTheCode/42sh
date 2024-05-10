@@ -42,6 +42,32 @@ int builtin_do_bg(command_t *, shell_t *);
 int builtin_do_bindkey(command_t *, shell_t *);
 int builtin_do_break(command_t *, shell_t *);
 int builtin_do_breaksw(command_t *, shell_t *);
+int builtin_do_case(command_t *, shell_t *);
+int builtin_do_complete(command_t *, shell_t *);
+int builtin_do_continue(command_t *, shell_t *);
+int builtin_do_default(command_t *, shell_t *);
+int builtin_do_dirs(command_t *, shell_t *);
+int builtin_do_echotc(command_t *, shell_t *);
+int builtin_do_else(command_t *, shell_t *);
+int builtin_do_end(command_t *, shell_t *);
+int builtin_do_endif(command_t *, shell_t *);
+int builtin_do_endsw(command_t *, shell_t *);
+int builtin_do_eval(command_t *, shell_t *);
+int builtin_do_exec(command_t *, shell_t *);
+int builtin_do_fg(command_t *, shell_t *);
+int builtin_do_filetest(command_t *, shell_t *);
+int builtin_do_foreach(command_t *, shell_t *);
+int builtin_do_glob(command_t *, shell_t *);
+int builtin_do_goto(command_t *, shell_t *);
+int builtin_do_hashstat(command_t *, shell_t *);
+int builtin_do_hup(command_t *, shell_t *);
+int builtin_do_if(command_t *, shell_t *);
+int builtin_do_jobs(command_t *, shell_t *);
+int builtin_do_limit(command_t *, shell_t *);
+int builtin_do_log(command_t *, shell_t *);
+int builtin_do_login(command_t *, shell_t *);
+int builtin_do_logout(command_t *, shell_t *);
+int builtin_do_nice(command_t *, shell_t *);
 int builtin_do_while(command_t *, shell_t *);
 int builtin_do_wait(command_t *, shell_t *);
 int builtin_do_unlimit(command_t *, shell_t *);
@@ -96,7 +122,6 @@ int display_where_with_invalid_caract(char *, shell_t *);
 
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
-    {"builtins", builtin_do_builtins},
     {"@", builtin_do_at},
     {"alias", builtin_do_alias},
     {"alloc", builtin_do_alloc},
@@ -104,10 +129,37 @@ static builtin_t const builtins[] = {
     {"bindkey", builtin_do_bindkey},
     {"break", builtin_do_break},
     {"breaksw", builtin_do_breaksw},
+    {"builtins", builtin_do_builtins},
+    {"case", builtin_do_case},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
+    {"complete", builtin_do_complete},
+    {"continue", builtin_do_continue},
+    {"default", builtin_do_default},
+    {"dirs", builtin_do_dirs},
+    {"echotc", builtin_do_echotc},
+    {"else", builtin_do_else},
+    {"end", builtin_do_end},
+    {"endif", builtin_do_endif},
+    {"endsw", builtin_do_endsw},
+    {"eval", builtin_do_eval},
+    {"exec", builtin_do_exec},
     {"exit", builtin_do_exit},
+    {"fg", builtin_do_fg},
+    {"filetest", builtin_do_filetest},
+    {"foreach", builtin_do_foreach},
+    {"glob", builtin_do_glob},
+    {"goto", builtin_do_goto},
+    {"hashstat", builtin_do_hashstat},
     {"history", builtin_do_history},
+    {"hup", builtin_do_hup},
+    {"if", builtin_do_if},
+    {"jobs", builtin_do_jobs},
+    {"limit", builtin_do_limit},
+    {"log", builtin_do_log},
+    {"login", builtin_do_login},
+    {"logout", builtin_do_logout},
+    {"nice", builtin_do_nice},
     {"nohup", builtin_do_nohup},
     {"notify", builtin_do_notify},
     {"onintr", builtin_do_onintr},
