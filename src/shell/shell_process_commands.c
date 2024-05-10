@@ -9,6 +9,19 @@
 
 #include <sys/wait.h>
 
+////////////////////////////////////////////////////////////
+// static int process_command(command_t *cmd, shell_t *shell,
+// command_t **curr)
+//
+// shell -> structure of the shell
+// cmd -> structure of the command
+// curr -> structure of the current command
+//
+// This function processes one command.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 static int process_command(command_t *cmd, shell_t *shell, command_t **curr)
 {
     if (command_get_type(cmd) == COMMAND)
@@ -22,6 +35,15 @@ static int process_command(command_t *cmd, shell_t *shell, command_t **curr)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// int shell_process_commands(shell_t *shell)
+//
+// shell -> structure of the shell
+//
+// This function processes the commands.
+//
+// RETURN VALUE : int that is always 0.
+////////////////////////////////////////////////////////////
 int shell_process_commands(shell_t *shell)
 {
     command_t *cmd = shell_get_cmds(shell);
