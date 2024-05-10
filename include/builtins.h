@@ -59,6 +59,7 @@ int builtin_do_source(command_t *, shell_t *);
 int builtin_do_shift(command_t *, shell_t *);
 int builtin_do_setty(command_t *, shell_t *);
 int builtin_do_settc(command_t *, shell_t *);
+int builtin_do_sched(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -103,6 +104,7 @@ static builtin_t const builtins[] = {
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"repeat", builtin_do_repeat},
+    {"sched", builtin_do_sched},
     {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
     {"settc", builtin_do_settc},
