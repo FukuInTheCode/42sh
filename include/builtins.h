@@ -64,6 +64,7 @@ int builtin_do_rehash(command_t *, shell_t *);
 int builtin_do_pushd(command_t *, shell_t *);
 int builtin_do_popd(command_t *, shell_t *);
 int builtin_do_onintr(command_t *, shell_t *);
+int builtin_do_notify(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -106,6 +107,7 @@ static builtin_t const builtins[] = {
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
+    {"notify", builtin_do_notify},
     {"onintr", builtin_do_onintr},
     {"popd", builtin_do_popd},
     {"printenv", builtin_do_printenv},
