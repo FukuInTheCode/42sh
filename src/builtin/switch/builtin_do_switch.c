@@ -11,8 +11,7 @@ int builtin_do_switch(command_t *command, shell_t *shell)
 {
     if (command == NULL || shell == NULL)
         return 84;
-    dprintf(2, "switch: Not Implemented.
-");
+    dprintf(2, "switch: Not Implemented.\n");
     shell_set_code(shell, 1);
     return 0;
 }
