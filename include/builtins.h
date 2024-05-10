@@ -56,6 +56,8 @@ int builtin_do_switch(command_t *, shell_t *);
 int builtin_do_suspend(command_t *, shell_t *);
 int builtin_do_stop(command_t *, shell_t *);
 int builtin_do_source(command_t *, shell_t *);
+int builtin_do_shift(command_t *, shell_t *);
+int builtin_do_setty(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -102,6 +104,8 @@ static builtin_t const builtins[] = {
     {"repeat", builtin_do_repeat},
     {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
+    {"setty", builtin_do_setty},
+    {"shift", builtin_do_shift},
     {"source", builtin_do_source},
     {"stop", builtin_do_stop},
     {"suspend", builtin_do_suspend},
