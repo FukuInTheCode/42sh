@@ -34,7 +34,16 @@ int builtin_do_which(command_t *, shell_t *);
 int builtin_do_set(command_t *, shell_t *);
 int builtin_do_unset(command_t *, shell_t *);
 int builtin_do_where(command_t *, shell_t *);
+<<<<<<< HEAD
 int builtin_do_repeat(command_t *, shell_t *);
+=======
+int builtin_do_at(command_t *, shell_t *);
+int builtin_do_alias(command_t *, shell_t *);
+int builtin_do_alloc(command_t *, shell_t *);
+int builtin_do_bg(command_t *, shell_t *);
+int builtin_do_bindkey(command_t *, shell_t *);
+int builtin_do_break(command_t *, shell_t *);
+>>>>>>> dec7814145650acc87724a0cc382c1af64e7846c
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -66,6 +75,12 @@ int display_where_with_invalid_caract(char *, shell_t *);
 static builtin_t const builtins[] = {
     {":", builtin_do_colon},
     {"builtins", builtin_do_builtins},
+    {"@", builtin_do_at},
+    {"alias", builtin_do_alias},
+    {"alloc", builtin_do_alloc},
+    {"bg", builtin_do_bg},
+    {"bindkey", builtin_do_bindkey},
+    {"break", builtin_do_break},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
