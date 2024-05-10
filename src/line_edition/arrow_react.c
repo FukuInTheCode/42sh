@@ -9,7 +9,7 @@
 #include <line_edition.h>
 #include <autocompletion.h>
 
-void do_arrow_react(char c, int *i, char *buffer)
+void do_arrow_react(char c, int *i, char *buffer, shell_t *shell)
 {
     line_edition_t *edition = init_edition();
 
@@ -28,6 +28,38 @@ void do_arrow_react(char c, int *i, char *buffer)
             printf("\033[1D");
             *i = *i - 1;
         }
+    }
+    if (edition->line[2] == UP) {
+        /*if (shell->current_h) {
+            shell->current_h = shell->current_h->next;
+        }*/
+        if (shell->current_h) {
+            printf("\033[%dD", (int)strlen(buffer));
+            printf("\033[K");
+            //printf("$> ");
+            printf("%s", shell->current_h->line);
+            memset(buffer, 0, sizeof(char) * strlen(buffer));
+            strcat(buffer, shell->current_h->line);
+            *i = (int)strlen(buffer);
+            if (shell->current_h->next) {
+                shell->current_h = shell->current_h->next;
+            }
+        }
+    }
+    if (edition->line[2] == DOWN) {
+        //printf("%s\n", shell->current_h->line);
+        if (shell->current_h && shell->current_h->prev) {
+            printf("%s\n", shell->current_h->prev->line);
+            shell->current_h = shell->current_h->prev;
+        }
+        /*if (shell->current_h) {
+            printf("%s\n", shell->current_h->line);
+        }
+        if (shell->current_h && !shell->current_h->prev) {
+            printf("\033[%dD", (int)strlen(buffer));
+            for (int j = 0; j != (int)strlen(shell->current_h->line); j++)
+                printf(" ");
+        }*/
     }
     free(edition->line);
     free(edition);
@@ -58,7 +90,7 @@ static int handle_suppr_and_back(char **buffer, int *i, char c, shell_t *shell)
 int handle_special_char(char **buffer, int *i, char c, shell_t *shell)
 {
     if (c == 27) {
-        do_arrow_react(c, i, *buffer);
+        do_arrow_react(c, i, *buffer, shell);
         return 1;
     }
     if (handle_suppr_and_back(buffer, i, c, shell) == 1)

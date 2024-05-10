@@ -19,7 +19,7 @@
 #define LEFT 68
 #define RIGHT 67
 #define DOWN 66
-#define TOP 65
+#define UP 65
 #define SUPPR 126
 #define BACKSPACE 127
 
