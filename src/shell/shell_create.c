@@ -5,10 +5,27 @@
 ** shell_create.c
 */
 
+#include "builtins.h"
+#include "env.h"
 #include "my.h"
 #include "history.h"
-
 #include <stdlib.h>
+#include <unistd.h>
+
+static void init_special_vars(shell_t *shell)
+{
+    char *tmp = getlogin();
+
+    if (!tmp)
+        return;
+    add_linked_list_set("user", tmp, shell);
+    add_linked_list_set("shell", "42sh", shell);
+    add_linked_list_set("status", "0", shell);
+    add_linked_list_set("42sh", "1.0.0 closed alpha", shell);
+    add_linked_list_set("prompt", "$> ", shell);
+    add_linked_list_set("cdtohome", "cd ~", shell);
+    add_linked_list_set("version", "42sh Epitech Promo 2028", shell);
+}
 
 ////////////////////////////////////////////////////////////
 // shell_t *shell_create(void)
@@ -30,6 +47,8 @@ shell_t *shell_create(void)
         free(shell);
         return NULL;
     }
+    shell->head = NULL;
+    init_special_vars(shell);
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
     shell_set_history_id(shell, 0);
