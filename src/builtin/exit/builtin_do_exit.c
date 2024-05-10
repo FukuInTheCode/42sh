@@ -38,8 +38,7 @@ int builtin_do_exit(command_t *command, shell_t *shell)
 {
     if (exit_handle_error(command, shell))
         return 0;
-    if (command_get_argc(command) == 2)
-        set_exit_code(command, shell);
+    set_exit_code(command, shell);
     shell_set_exit(shell, true);
     printf("exit\n");
     return 0;
