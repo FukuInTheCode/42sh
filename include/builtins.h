@@ -42,6 +42,7 @@ int builtin_do_bg(command_t *, shell_t *);
 int builtin_do_bindkey(command_t *, shell_t *);
 int builtin_do_break(command_t *, shell_t *);
 int builtin_do_breaksw(command_t *, shell_t *);
+int builtin_do_while(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -92,6 +93,7 @@ static builtin_t const builtins[] = {
     {"unsetenv", builtin_do_unsetenv},
     {"where", builtin_do_where},
     {"which", builtin_do_which},
+    {"while", builtin_do_while},
     {NULL, NULL}
 };
 
