@@ -12,14 +12,19 @@
 static void remove_in_history(history_t *history, char *line)
 {
     history_t *tmp;
+    int size = 0;
 
     if (history == NULL || history->next == NULL)
         return;
-    while (history->next->next && strcmp(history->next->line, line) != 0)
+    while (history->next->next && strcmp(history->next->line, line) != 0
+    && size <= 100) {
         history = history->next;
-    if (strcmp(history->next->line, line) == 0) {
+        size++;
+    }
+    if (size >= 100 || strcmp(history->next->line, line) == 0) {
         tmp = history->next;
         history->next = history->next->next;
+        free(tmp->line);
         free(tmp);
     }
     return;
@@ -36,7 +41,7 @@ static history_t *create_new_history_node(shell_t *shell, char *line)
     if (new->next)
         new->id = new->next->id + 1;
     else {
-        new->id = 0;
+        new->id = shell_get_history_id(shell);
         shell_set_history_id(shell, shell_get_history_id(shell) + 1);
     }
     return new;

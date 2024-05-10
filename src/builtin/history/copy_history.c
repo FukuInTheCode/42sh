@@ -32,11 +32,12 @@ history_t *copy_history(history_t *history)
         return NULL;
     copy = init_copy(copy, history_tmp);
     copy_tmp = copy;
-    while (history_tmp) {
+    while (history_tmp->next) {
         copy_tmp->next = malloc(sizeof(history_t));
-        copy_tmp->next->id = history_tmp->id;
-        copy_tmp->next->line = strdup(history_tmp->line);
-        copy_tmp->next->time = history_tmp->time;
+        copy_tmp->next->id = history_tmp->next->id;
+        copy_tmp->next->line = strdup(history_tmp->next->line);
+        copy_tmp->next->time = history_tmp->next->time;
+        copy_tmp->next->prev = copy_tmp;
         history_tmp = history_tmp->next;
         copy_tmp = copy_tmp->next;
     }

@@ -18,6 +18,12 @@
     #define SYS_IN 0
     #define SYS_ERR 2
 
+typedef struct variables_s {
+    char *assigned;
+    char *to_do;
+    struct variables_s *next;
+} variables_t;
+
 typedef struct history_s {
     char *line;
     int id;
@@ -34,6 +40,7 @@ typedef struct shell_s {
     int out;
     int in;
     int err;
+    variables_t *head;
     history_t *history;
     int history_id;
 } shell_t;
@@ -73,4 +80,6 @@ int shell_process_cmds_error(shell_t *);
 int shell_process_command(shell_t *, command_t *);
 int shell_process_and(shell_t *, command_t *, command_t **);
 int shell_process_or(shell_t *, command_t *, command_t **);
+
+int shell_init_variable(shell_t *);
 int shell_process_subshell(shell_t *, command_t *, command_t **);
