@@ -52,6 +52,7 @@ int builtin_do_else(command_t *, shell_t *);
 int builtin_do_end(command_t *, shell_t *);
 int builtin_do_endif(command_t *, shell_t *);
 int builtin_do_endsw(command_t *, shell_t *);
+int builtin_do_eval(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -102,6 +103,7 @@ static builtin_t const builtins[] = {
     {"end", builtin_do_end},
     {"endif", builtin_do_endif},
     {"endsw", builtin_do_endsw},
+    {"eval", builtin_do_eval},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
