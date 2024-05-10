@@ -68,6 +68,30 @@ int builtin_do_log(command_t *, shell_t *);
 int builtin_do_login(command_t *, shell_t *);
 int builtin_do_logout(command_t *, shell_t *);
 int builtin_do_nice(command_t *, shell_t *);
+int builtin_do_while(command_t *, shell_t *);
+int builtin_do_wait(command_t *, shell_t *);
+int builtin_do_unlimit(command_t *, shell_t *);
+int builtin_do_unhash(command_t *, shell_t *);
+int builtin_do_uncomplete(command_t *, shell_t *);
+int builtin_do_unalias(command_t *, shell_t *);
+int builtin_do_umask(command_t *, shell_t *);
+int builtin_do_time(command_t *, shell_t *);
+int builtin_do_termname(command_t *, shell_t *);
+int builtin_do_telltc(command_t *, shell_t *);
+int builtin_do_switch(command_t *, shell_t *);
+int builtin_do_suspend(command_t *, shell_t *);
+int builtin_do_stop(command_t *, shell_t *);
+int builtin_do_source(command_t *, shell_t *);
+int builtin_do_shift(command_t *, shell_t *);
+int builtin_do_setty(command_t *, shell_t *);
+int builtin_do_settc(command_t *, shell_t *);
+int builtin_do_sched(command_t *, shell_t *);
+int builtin_do_rehash(command_t *, shell_t *);
+int builtin_do_pushd(command_t *, shell_t *);
+int builtin_do_popd(command_t *, shell_t *);
+int builtin_do_onintr(command_t *, shell_t *);
+int builtin_do_notify(command_t *, shell_t *);
+int builtin_do_nohup(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -136,14 +160,38 @@ static builtin_t const builtins[] = {
     {"login", builtin_do_login},
     {"logout", builtin_do_logout},
     {"nice", builtin_do_nice},
+    {"nohup", builtin_do_nohup},
+    {"notify", builtin_do_notify},
+    {"onintr", builtin_do_onintr},
+    {"popd", builtin_do_popd},
     {"printenv", builtin_do_printenv},
+    {"pushd", builtin_do_pushd},
+    {"rehash", builtin_do_rehash},
     {"repeat", builtin_do_repeat},
+    {"sched", builtin_do_sched},
     {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
+    {"settc", builtin_do_settc},
+    {"setty", builtin_do_setty},
+    {"shift", builtin_do_shift},
+    {"source", builtin_do_source},
+    {"stop", builtin_do_stop},
+    {"suspend", builtin_do_suspend},
+    {"switch", builtin_do_switch},
+    {"telltc", builtin_do_telltc},
+    {"termname", builtin_do_termname},
+    {"time", builtin_do_time},
+    {"umask", builtin_do_umask},
+    {"unalias", builtin_do_unalias},
+    {"uncomplete", builtin_do_uncomplete},
+    {"unhash", builtin_do_unhash},
+    {"unlimit", builtin_do_unlimit},
     {"unset", builtin_do_unset},
     {"unsetenv", builtin_do_unsetenv},
+    {"wait", builtin_do_wait},
     {"where", builtin_do_where},
     {"which", builtin_do_which},
+    {"while", builtin_do_while},
     {NULL, NULL}
 };
 
