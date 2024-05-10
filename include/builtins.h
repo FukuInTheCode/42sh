@@ -59,6 +59,7 @@ int builtin_do_filetest(command_t *, shell_t *);
 int builtin_do_foreach(command_t *, shell_t *);
 int builtin_do_glob(command_t *, shell_t *);
 int builtin_do_goto(command_t *, shell_t *);
+int builtin_do_hashstat(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -117,6 +118,7 @@ static builtin_t const builtins[] = {
     {"foreach", builtin_do_foreach},
     {"glob", builtin_do_glob},
     {"goto", builtin_do_goto},
+    {"hashstat", builtin_do_hashstat},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"repeat", builtin_do_repeat},
