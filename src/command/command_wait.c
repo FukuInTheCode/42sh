@@ -9,6 +9,16 @@
 #include "my.h"
 #include <sys/wait.h>
 
+////////////////////////////////////////////////////////////
+// int command_wait(command_t *command, void *shell)
+//
+// shell -> structure of the shell
+// command -> structure of the command
+//
+// This function waits the command.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int command_wait(command_t *command, void *shell)
 {
     if (!command_get_wait(command) || !command_get_pid(command))
