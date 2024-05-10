@@ -55,25 +55,39 @@ static void free_path(char *last_arg_path,
     free(last_arg_path);
 }
 
-char **path_handle(char *arg, shell_t *shell)
+static char *concatenate_path(char *last_arg_path,
+    char *arg, char *result, char *full_path)
 {
-    char **temp = my_str_to_word_array(arg, " ");
-    char **send = NULL;
-    char *full_path = strdup(env_get(shell_get_env(shell), "PATH"));
-    char *result = strdup(full_path);
-    char *last_arg_path = malloc(strlen(arg) + 1);
-
+    result = strdup(full_path);
     result = realloc(result, strlen(full_path) + strlen(":.") + 1);
     strcat(result, ":.");
-    if (last_arg_path == NULL) {
-        perror("Allocation error");
-        return NULL;
-    }
     strncpy(last_arg_path, arg, strlen(arg));
     last_arg_path[strlen(arg)] = '\0';
     result = realloc(result, strlen(full_path) + strlen(last_arg_path) + 8);
     strcat(result, ":./");
     strcat(result, last_arg_path);
+    return result;
+}
+
+char **path_handle(char *arg, shell_t *shell)
+{
+    char **temp = my_str_to_word_array(arg, " ");
+    char **send = NULL;
+    char *save = env_get(shell_get_env(shell), "PATH");
+    char *full_path = NULL;
+    char *result = NULL;
+    char *last_arg_path = malloc(strlen(arg) + 1);
+
+    if (!save) {
+        free(last_arg_path);
+        return NULL;
+    }
+    if (last_arg_path == NULL) {
+        perror("Allocation error");
+        return NULL;
+    }
+    full_path = strdup(save);
+    result = concatenate_path(last_arg_path, arg, result, full_path);
     send = my_str_to_word_array(result, ":");
     free_path(last_arg_path, temp, full_path, result);
     return send;

@@ -15,6 +15,42 @@
 #include <unistd.h>
 #include "string.h"
 
+static void free_search(int *buffer_size, char **pas)
+{
+    free(buffer_size);
+    if (pas)
+        my_free_word_array(pas);
+}
+
+static char **buffer_dir(char *arg)
+{
+    char **buffer = NULL;
+
+    if (strchr(arg, '/') != NULL) {
+        buffer = directory_close(arg);
+        return buffer;
+    } else
+        return NULL;
+}
+
+static bool loop_search(DIR **dir, char *pas, int **buffer_size)
+{
+    reset_variables(dir, pas, buffer_size);
+    if (*dir == NULL)
+        return true;
+    else
+        return false;
+}
+
+static bool are_there_free(int *buffer_size, char **pas)
+{
+    if (!pas || !buffer_size) {
+        free_search(buffer_size, pas);
+        return true;
+    }
+    return false;
+}
+
 char *is_directory_or_exec(char *name, char *path, char *arg)
 {
     struct stat file_stat;
@@ -36,7 +72,7 @@ char *is_directory_or_exec(char *name, char *path, char *arg)
     return name;
 }
 
-static char **buffer_add(char **buff, char *temp, int **buffer_size)
+char **buffer_add(char **buff, char *temp, int **buffer_size)
 {
     buff[(*buffer_size)[1]] = strdup(temp);
     buff[(*buffer_size)[1] + 1] = NULL;
@@ -69,40 +105,21 @@ char **command_find_loop(DIR *dir, char *arg, int **buffer_size, char *path)
     return buff;
 }
 
-static void free_search(int *buffer_size, char **pas)
-{
-    free(buffer_size);
-    my_free_word_array(pas);
-}
-
-static char **buffer_dir(char *arg, char **buffer)
-{
-    if (strchr(arg, '/') != NULL) {
-        buffer = directory_close(arg);
-        return buffer;
-    } else
-        return NULL;
-}
-
 char **search_command(char *arg, shell_t *sh)
 {
-    DIR *dir;
-    char **buffer = NULL;
+    DIR *dir = NULL;
     char **pas = path_handle(arg, sh);
     int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
     char **result = NULL;
+    char **buffer = buffer_dir(arg);
 
-    buffer = buffer_dir(arg, buffer);
-    if (buffer != NULL) {
-        free_search(buffer_size, pas);
-        return buffer;
-    }
+    if (are_there_free(buffer_size, pas))
+        return NULL;
     for (int i = 0; pas[i] != NULL; i++) {
-        reset_variables(&dir, pas[i], &buffer_size);
-        if (dir == NULL)
+        if (loop_search(&dir, pas[i], &buffer_size) == true)
             continue;
         result = command_find_loop(dir, arg, &buffer_size, pas[i]);
-        if (result[0] == NULL) {
+        if (result == NULL || result[0] == NULL) {
             my_free_word_array(result);
             continue;
         }

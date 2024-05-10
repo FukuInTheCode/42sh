@@ -11,12 +11,14 @@
     #include <string.h>
     #include <dirent.h>
     #include "shell.h"
+    #include <stdbool.h>
 
 char **directory_close(char *);
 char **search_command(char *, shell_t *);
-char **tabulation_alone(char *, shell_t *);
+char **tabulation_alone(char *, shell_t *, char *);
 char **allocation_of_buffer(char **, char **);
 char **command_realloc(char **, int *);
+char **buffer_add(char **, char *, int **);
 char **command_find_loop(DIR *, char *, int **, char *);
 char **path_handle(char *, shell_t *);
 

@@ -30,9 +30,9 @@ char *autocomplete_buffer(char *buffer, int len, int *i)
 
 char *complete_command(char *buffer, int *i, char **commands, char *save)
 {
-    sprintf(buffer, "%s", commands[0]);
+    sprintf(buffer, "%s ", commands[0]);
     if (save)
-        sprintf(buffer, "%s %s", save, commands[0]);
+        sprintf(buffer, "%s %s ", save, commands[0]);
     buffer = autocomplete_buffer(buffer, (int)strlen(buffer), i);
     return buffer;
 }
@@ -49,12 +49,12 @@ char *autocompletion(char *buffer, shell_t *shell, int *i)
         return buffer;
     }
     save = save_handle(temp);
-    command = tabulation_alone(temp[len], shell);
+    command = tabulation_alone(temp[len], shell, buffer);
     if (my_len_word_array(command) != 1)
         display_command(command, my_len_word_array(command), save, temp[len]);
     else if (strncmp(temp[len], command[0], strlen(command[0])) != 0) {
         memset(buffer, 0, sizeof(char) *
-            ((int)strlen(buffer) + (int)strlen(temp[len])));
+            ((int)strlen(buffer) + (int)strlen(temp[len]) + 1));
         buffer = complete_command(buffer, i, command, save);
     }
     free_autocomplete(command, temp, save);
