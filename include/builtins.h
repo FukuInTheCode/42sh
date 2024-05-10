@@ -90,6 +90,7 @@ static builtin_t const builtins[] = {
     {"complete", builtin_do_complete},
     {"continue", builtin_do_continue},
     {"default", builtin_do_default},
+    {"dirs", builtin_do_dirs},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
