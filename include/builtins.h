@@ -63,6 +63,7 @@ int builtin_do_hashstat(command_t *, shell_t *);
 int builtin_do_hup(command_t *, shell_t *);
 int builtin_do_if(command_t *, shell_t *);
 int builtin_do_jobs(command_t *, shell_t *);
+int builtin_do_limit(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -126,6 +127,7 @@ static builtin_t const builtins[] = {
     {"hup", builtin_do_hup},
     {"if", builtin_do_if},
     {"jobs", builtin_do_jobs},
+    {"limit", builtin_do_limit},
     {"printenv", builtin_do_printenv},
     {"repeat", builtin_do_repeat},
     {"set", builtin_do_set},
