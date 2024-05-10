@@ -54,6 +54,7 @@ int builtin_do_termname(command_t *, shell_t *);
 int builtin_do_telltc(command_t *, shell_t *);
 int builtin_do_switch(command_t *, shell_t *);
 int builtin_do_suspend(command_t *, shell_t *);
+int builtin_do_stop(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
