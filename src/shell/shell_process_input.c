@@ -31,5 +31,6 @@ int shell_process_input(shell_t *shell, char const *input)
     if (shell_process_cmds_error(shell) == 1)
         return 0;
     shell_process_commands(shell);
+    free(new_input);
     return 0;
 }
