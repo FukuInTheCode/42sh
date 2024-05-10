@@ -9,7 +9,7 @@
 
 ////////////////////////////////////////////////////////////
 // separator_t const *parser_handle_separator(parser_t *parser,
-//      char const *token)
+//     char const *token)
 //
 // parser -> all the data of the parser
 // token -> current token

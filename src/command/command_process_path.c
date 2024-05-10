@@ -9,14 +9,12 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "env.h"
 
 static bool is_relative_path(char const *path)
 {
-    for (size_t i = 0; path[i]; i++)
-        if (path[i] == '/')
-            return true;
-    return false;
+    return !access(path, F_OK | X_OK);
 }
 
 static int handle_tmp(command_t *command, char *s, char *tmp)

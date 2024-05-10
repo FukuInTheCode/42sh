@@ -6,6 +6,8 @@
 */
 
 #include "my.h"
+#include "history.h"
+#include "builtins.h"
 #include "line_edition.h"
 #include <stdio.h>
 #include <string.h>
@@ -33,11 +35,13 @@ int shell_run_edition(shell_t *shell)
         if (!line) {
             return 84;
         }
+        add_in_history(shell, line);
         printf("\n");
         shell_process_input(shell, line);
         free(line);
         shell_clean(shell);
         restore_terminal();
     }
+    save_history(shell, HISTORY_FILE_NAME);
     return 0;
 }
