@@ -54,18 +54,17 @@ static int get_size(command_t *command)
 
 static void handle_flag(shell_t *shell, command_t *command, char *flag)
 {
-    if (my_char_is_in_str('c', flag) && my_char_is_in_str('L', flag))
-        return;
     if (my_char_is_in_str('c', flag))
         remove_history(shell);
-    if (my_char_is_in_str('S', flag)) {
+    if (my_char_is_in_str('S', flag) || my_char_is_in_str('M', flag)) {
         if (command_get_argc(command) == 3)
             save_history(shell, command_get_argv(command)[2]);
         else
             save_history(shell, HISTORY_FILE_NAME);
-        return;
+        if (!my_char_is_in_str('M', flag))
+            return;
     }
-    if (my_char_is_in_str('L', flag)){
+    if (my_char_is_in_str('L', flag) || my_char_is_in_str('M', flag)) {
         if (command_get_argc(command) == 3)
             history_load_from_file(shell, command_get_argv(command)[2]);
         else
