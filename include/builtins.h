@@ -37,6 +37,7 @@ int builtin_do_alias(command_t *, shell_t *);
 int builtin_do_alloc(command_t *, shell_t *);
 int builtin_do_bg(command_t *, shell_t *);
 int builtin_do_bindkey(command_t *, shell_t *);
+int builtin_do_break(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -67,6 +68,7 @@ static builtin_t const builtins[] = {
     {"alloc", builtin_do_alloc},
     {"bg", builtin_do_bg},
     {"bindkey", builtin_do_bindkey},
+    {"break", builtin_do_break},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
     {"exit", builtin_do_exit},
