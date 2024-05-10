@@ -47,9 +47,12 @@ char **directory_close(char *arg)
     char **result = NULL;
     char **good_arg = my_str_to_word_array(arg, "/");
 
+    printf("arg %s\n", arg);
     dir = opendir(arg);
-    if (dir == NULL)
+    if (dir == NULL) {
+        free_dir(good_arg, buffer_size);
         return NULL;
+    }
     if (strncmp(arg, "./", 2) == 0)
         result = command_find_loop_in_dir(dir, arg, &buffer_size);
     else

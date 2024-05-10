@@ -23,8 +23,10 @@ char *is_directory_or_exec(char *name, char *path, char *arg)
     strcpy(temp, path);
     temp = strcat(temp, "/");
     temp = strcat(temp, name);
-    if (stat(temp, &file_stat) == -1)
+    if (stat(temp, &file_stat) == -1) {
+        free(temp);
         return name;
+    }
     if (S_ISDIR(file_stat.st_mode))
         name = strcat(name, "/");
     if (access(temp, X_OK) != -1 && !S_ISDIR(file_stat.st_mode)
@@ -73,11 +75,10 @@ static void free_search(int *buffer_size, char **pas)
     my_free_word_array(pas);
 }
 
-static char **buffer_dir(char *arg, char **buffer, int *buffer_size, char **pas)
+static char **buffer_dir(char *arg, char **buffer)
 {
     if (strchr(arg, '/') != NULL) {
         buffer = directory_close(arg);
-        free_search(buffer_size, pas);
         return buffer;
     } else
         return NULL;
@@ -91,7 +92,11 @@ char **search_command(char *arg, shell_t *sh)
     int *buffer_size = calloc(sizeof(int) * 2, sizeof(int) * 2);
     char **result = NULL;
 
-    buffer = buffer_dir(arg, buffer, buffer_size, pas);
+    buffer = buffer_dir(arg, buffer);
+    if (buffer != NULL) {
+        free_search(buffer_size, pas);
+        return buffer;
+    }
     for (int i = 0; pas[i] != NULL; i++) {
         reset_variables(&dir, pas[i], &buffer_size);
         if (dir == NULL)

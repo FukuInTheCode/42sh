@@ -10,6 +10,7 @@
 #include "env.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static char *save_copy(char *temp_save, char *save, char **temp, int i)
 {
@@ -23,14 +24,15 @@ static char *save_copy(char *temp_save, char *save, char **temp, int i)
 
 char *save_handle(char **temp)
 {
-    char *save = malloc(sizeof(char) * (strlen(temp[0]) + 1));
+    char *save = strdup(temp[0]);
     char *temp_save = NULL;
 
     if (save == NULL)
         return NULL;
-    strcpy(save, temp[0]);
-    if (my_len_word_array(temp) == 1)
+    if (my_len_word_array(temp) == 1) {
+        free(save);
         return NULL;
+    }
     if (temp[1] == NULL)
         return save;
     for (size_t i = 1; i < my_len_word_array(temp) - 1; i++) {
