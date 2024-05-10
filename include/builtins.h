@@ -45,6 +45,7 @@ int builtin_do_breaksw(command_t *, shell_t *);
 int builtin_do_case(command_t *, shell_t *);
 int builtin_do_complete(command_t *, shell_t *);
 int builtin_do_continue(command_t *, shell_t *);
+int builtin_do_default(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -88,6 +89,7 @@ static builtin_t const builtins[] = {
     {"chdir", builtin_do_cd},
     {"complete", builtin_do_complete},
     {"continue", builtin_do_continue},
+    {"default", builtin_do_default},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
