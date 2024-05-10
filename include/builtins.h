@@ -54,6 +54,7 @@ int builtin_do_endif(command_t *, shell_t *);
 int builtin_do_endsw(command_t *, shell_t *);
 int builtin_do_eval(command_t *, shell_t *);
 int builtin_do_exec(command_t *, shell_t *);
+int builtin_do_fg(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -107,6 +108,7 @@ static builtin_t const builtins[] = {
     {"eval", builtin_do_eval},
     {"exec", builtin_do_exec},
     {"exit", builtin_do_exit},
+    {"fg", builtin_do_fg},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"repeat", builtin_do_repeat},
