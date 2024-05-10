@@ -50,6 +50,7 @@ int builtin_do_uncomplete(command_t *, shell_t *);
 int builtin_do_unalias(command_t *, shell_t *);
 int builtin_do_umask(command_t *, shell_t *);
 int builtin_do_time(command_t *, shell_t *);
+int builtin_do_termname(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -96,6 +97,7 @@ static builtin_t const builtins[] = {
     {"repeat", builtin_do_repeat},
     {"set", builtin_do_set},
     {"setenv", builtin_do_setenv},
+    {"termname", builtin_do_termname},
     {"time", builtin_do_time},
     {"umask", builtin_do_umask},
     {"unalias", builtin_do_unalias},
