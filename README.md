@@ -246,3 +246,22 @@ Vous pouvez combiner plusieurs séparateurs de redirection pour des opérations 
 commande1 < fichier_entree.txt > fichier_sortie.txt
 ```
 Cela utilise `fichier_entree.txt` comme entrée pour `commande1` et écrit la sortie de `commande1` dans `fichier_sortie.txt`.
+
+# Démonstration de notre 42sh
+### Voici 3 extraits de notre projet !
+
+<div align="center">
+
+<img width="650" src="https://drive.google.com/uc?export=view&id=1iyPczGXtxhZQxNC2-O_9q0IWqCBypBsN">
+
+</div>
+<div align="center">
+
+<img width="650" src="https://drive.google.com/uc?export=view&id=1fFwsWO7iViYngY4BXPkkox-5iQSmcWV9">
+
+</div>
+<div align="center">
+
+<img width="650" src="https://drive.google.com/uc?export=view&id=1aQA53n33fq10BwlKrXMgYG9OkQgR7mO_">
+
+</div>
