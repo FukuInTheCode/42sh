@@ -185,3 +185,23 @@ TESTS=
   echo 'ls -l'
   echo 'exit 45|cat /etc/resolv.conf'
 [920-END]
+
+[921]
+NAME="ls but 'l''s'"
+SETUP="export VAR1=VALEUR1 ; OLDPATH=$PATH ; PATH='/random'"
+CLEAN="PATH=$OLDPATH"
+TESTS=
+  echo '"l""s"'
+[921-END]
+
+[922]
+NAME="save in .history"
+SETUP="export VAR1=VALEUR1 ; OLDPATH=$PATH ; PATH='/random'"
+CLEAN="PATH=$OLDPATH"
+TESTS=
+  echo 'ls'
+  echo 'ls -l'
+  echo 'ls -a'
+  echo 'history -S'
+  echo 'cat .history'
+[922-END]
