@@ -48,6 +48,6 @@ int command_exec(command_t *command, void *shell)
         if (command_get_out(command) != 1 || !command_handle_builtins(command))
             shell_set_exit(shell, true);
     }
-    command_handle_closes(command);
+    command_handle_closes(command, shell);
     return 0;
 }

@@ -30,10 +30,17 @@ static int cd_change_wd(shell_t *shell, char const *new_pwd)
     if (!pwd)
         return 84;
     if (chdir(new_pwd) == -1)
-        builtin_handle_cd_errors(shell, new_pwd, errno);
+        return builtin_handle_cd_errors(shell, new_pwd, errno);
+    if (env_get(shell_get_env(shell), "OLDPWD"))
+        shell_set_env(shell, env_change(shell->env, "OLDPWD", pwd));
+    else
+        shell_set_env(shell, env_add(shell->env, "OLDPWD", pwd));
     free(pwd);
     pwd = getcwd(NULL, 0);
-    shell_set_env(shell, env_change(shell->env, "PWD", pwd));
+    if (env_get(shell_get_env(shell), "PWD"))
+        shell_set_env(shell, env_change(shell->env, "PWD", pwd));
+    else
+        shell_set_env(shell, env_add(shell->env, "PWD", pwd));
     free(pwd);
     return 0;
 }

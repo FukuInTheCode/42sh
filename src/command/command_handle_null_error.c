@@ -12,10 +12,12 @@
 static bool check_prev(command_t *command)
 {
     command_t *prev = command_get_prev(command);
+    type_t type = 0;
 
     if (!prev)
         return false;
-    if (command_get_type(prev) != COMMAND && command_get_type(prev) != OTHER)
+    type = command_get_type(prev);
+    if (type != COMMAND && type != OTHER && type != SUBSHELL_CLOSE)
         return false;
     return true;
 }
@@ -23,10 +25,12 @@ static bool check_prev(command_t *command)
 static bool check_next(command_t *command)
 {
     command_t *next = command_get_next(command);
+    type_t type = 0;
 
     if (!next)
         return false;
-    if (command_get_type(next) != COMMAND && command_get_type(next) != OTHER)
+    type = command_get_type(next);
+    if (type != COMMAND && type != OTHER && type != SUBSHELL_OPEN)
         return false;
     return true;
 }

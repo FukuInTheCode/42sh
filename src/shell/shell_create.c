@@ -7,7 +7,8 @@
 
 #include "builtins.h"
 #include "env.h"
-
+#include "my.h"
+#include "history.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -26,6 +27,15 @@ static void init_special_vars(shell_t *shell)
     add_linked_list_set("version", "42sh Epitech Promo 2028", shell);
 }
 
+////////////////////////////////////////////////////////////
+// shell_t *shell_create(void)
+//
+// This function creates and do necessary memory allocations
+// to execute the commands.
+//
+// RETURN VALUE : shell_t that represent the shell. If an
+// error occurs, NULL is returned
+////////////////////////////////////////////////////////////
 shell_t *shell_create(void)
 {
     shell_t *shell = calloc(1, sizeof(shell_t));
@@ -41,5 +51,8 @@ shell_t *shell_create(void)
     init_special_vars(shell);
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
+    shell_set_history_id(shell, 0);
+    shell_set_history(shell, NULL);
+    history_load_from_file(shell, HISTORY_FILE_NAME);
     return shell;
 }

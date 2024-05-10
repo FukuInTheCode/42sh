@@ -10,6 +10,17 @@
 #include "variables.h"
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// int shell_process_input(shell_t *shell, char const *input)
+//
+// shell -> structure that contains all the data of the shell
+// input -> string that represent the input of the user
+//
+// This function parse and process the input and detect the errors
+// to execute commands.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int shell_process_input(shell_t *shell, char const *input)
 {
     char *new_input = variables_format(input, shell);

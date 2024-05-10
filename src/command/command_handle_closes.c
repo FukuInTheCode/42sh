@@ -10,13 +10,13 @@
 #include "shell.h"
 #include <unistd.h>
 
-int command_handle_closes(command_t *command)
+int command_handle_closes(command_t *command, void *shell)
 {
-    if (command_get_err(command) != SYS_ERR)
+    if (command_get_err(command) != shell_get_err(shell))
         close(command_get_err(command));
-    if (command_get_out(command) != SYS_OUT)
+    if (command_get_out(command) != shell_get_out(shell))
         close(command_get_out(command));
-    if (command_get_in(command) != SYS_IN)
+    if (command_get_in(command) != shell_get_in(shell))
         close(command_get_in(command));
     return 0;
 }

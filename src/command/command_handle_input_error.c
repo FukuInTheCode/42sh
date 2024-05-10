@@ -16,7 +16,9 @@ int command_handle_input_error(command_t *command, void *shell_ptr)
         return 0;
     command = command_get_prev(command);
     for (; command; command = command_get_prev(command)) {
-        if (command_get_type(command) == END)
+        if (command_get_type(command) == END ||
+            command_get_type(command) == SUBSHELL_OPEN ||
+            command_get_type(command) == SUBSHELL_CLOSE)
             return 0;
         if (command_get_type(command) == PIPELINE ||
             command_get_type(command) == LEFT_RED ||

@@ -52,6 +52,8 @@ command_t *parser_command_command(parser_t *);
 command_t *parser_command_other(parser_t *, char const *);
 command_t *parser_command_and(parser_t *, command_t *);
 command_t *parser_command_or(parser_t *, command_t *);
+command_t *parser_command_open_subshell(parser_t *);
+command_t *parser_command_close_subshell(parser_t *);
 
 static separator_t const separators[] = {
     {";", "", parser_command_end},
@@ -62,5 +64,7 @@ static separator_t const separators[] = {
     {"<<", "", parser_command_double_left},
     {"&&", "", parser_command_and},
     {"||", "", parser_command_or},
+    {"(", "", parser_command_open_subshell},
+    {")", "", parser_command_close_subshell},
     {NULL, NULL, NULL}
 };
