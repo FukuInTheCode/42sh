@@ -127,14 +127,14 @@ static char *add_in_word_array(int word_size, int i, char *str)
 
 char **my_str_to_word_array(char *str, char const *del)
 {
-    int size = strlen(str);
-    char **word_array = my_str_to_word_array_malloc(get_nb_of_word(str, del));
+    int number_of_word = get_nb_of_word(str, del);
+    char **word_array = my_str_to_word_array_malloc(number_of_word);
     int ind = 0;
     int word_size;
 
     if (word_array == NULL)
         return (NULL);
-    for (int i = 0; i < size; i += word_size + 1) {
+    for (int i = 0; ind < number_of_word; i += word_size + 1) {
         i = change_i(i, str, del);
         word_size = count_size_of_word(str, i, del);
         word_array[ind] = add_in_word_array(word_size, i, str);
