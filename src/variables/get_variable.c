@@ -106,7 +106,7 @@ static char *variable_find(char *input, size_t *i, shell_t *shell)
     if (!var_val)
         return display_var_error(var_name, shell);
     new_input = calloc(*i + strlen(var_val) +
-        strlen(input + *i + 1 + var_len), sizeof(char));
+        strlen(input + *i + 1 + var_len) + 1, sizeof(char));
     snprintf(new_input, *i + 1, "%s", input);
     sprintf(new_input + *i, "%s%s", var_val, input + *i + 1 + var_len);
     free(var_name);

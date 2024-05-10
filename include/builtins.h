@@ -35,6 +35,7 @@ int builtin_do_set(command_t *, shell_t *);
 int builtin_do_unset(command_t *, shell_t *);
 int builtin_do_where(command_t *, shell_t *);
 int builtin_do_repeat(command_t *, shell_t *);
+int builtin_do_echo(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -68,6 +69,7 @@ static builtin_t const builtins[] = {
     {"builtins", builtin_do_builtins},
     {"cd", builtin_do_cd},
     {"chdir", builtin_do_cd},
+    {"echo", builtin_do_echo},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
