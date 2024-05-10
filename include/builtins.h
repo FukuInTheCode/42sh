@@ -56,6 +56,7 @@ int builtin_do_eval(command_t *, shell_t *);
 int builtin_do_exec(command_t *, shell_t *);
 int builtin_do_fg(command_t *, shell_t *);
 int builtin_do_filetest(command_t *, shell_t *);
+int builtin_do_foreach(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -111,6 +112,7 @@ static builtin_t const builtins[] = {
     {"exit", builtin_do_exit},
     {"fg", builtin_do_fg},
     {"filetest", builtin_do_filetest},
+    {"foreach", builtin_do_foreach},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
     {"repeat", builtin_do_repeat},
