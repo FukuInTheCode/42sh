@@ -34,7 +34,7 @@ line_edition_t *init_edition(void);
 
 char *get_input(shell_t *shell);
 
-int extend_buffer(char **buffer, size_t *buffer_size);
+int extend_buffer(char **buffer, shell_t *shell);
 
 int handle_special_char(char **buffer, int *i, char c, shell_t *shell);
 

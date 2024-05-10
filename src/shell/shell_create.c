@@ -22,6 +22,7 @@ shell_t *shell_create(void)
         return NULL;
     }
     shell->current_h = NULL;
+    shell->cursor_size = 1024;
     shell_set_out(shell, SYS_OUT);
     shell_set_err(shell, SYS_ERR);
     shell_set_history_id(shell, 0);

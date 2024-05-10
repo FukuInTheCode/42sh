@@ -21,8 +21,8 @@ void display_input(char **buffer, int *i, char c, shell_t *shell)
 
 char *get_input(shell_t *shell)
 {
-    size_t buffer_size = MAX_INPUT;
-    char *buffer = calloc(sizeof(char) * buffer_size, sizeof(char));
+    shell->cursor_size = MAX_INPUT;
+    char *buffer = calloc(sizeof(char) * shell->cursor_size, sizeof(char));
     char c;
     int i = 0;
 
@@ -32,7 +32,7 @@ char *get_input(shell_t *shell)
     }
     set_noncanonical_mode();
     while (1) {
-        if (extend_buffer(&buffer, &buffer_size) == 84)
+        if (extend_buffer(&buffer, shell) == 84)
             return NULL;
         c = getchar();
         if (c == '\n')

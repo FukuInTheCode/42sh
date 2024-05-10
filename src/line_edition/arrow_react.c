@@ -9,6 +9,22 @@
 #include <line_edition.h>
 #include <autocompletion.h>
 
+int extend_buffer_history(char **buffer, shell_t *shell)
+{
+    int len = (int)strlen(shell->current_h->line);
+    shell->cursor_size = len;
+
+    if (len >= 1024) {
+        *buffer = realloc(*buffer, (len + 1) * sizeof(char));
+        if (!*buffer) {
+            perror("Memory allocation error");
+            return 84;
+        }
+        memset(*buffer, 0, (len + 1) * sizeof(char));
+    }
+    return 0;
+}
+
 void do_arrow_react(char c, int *i, char *buffer, shell_t *shell)
 {
     line_edition_t *edition = init_edition();
@@ -39,6 +55,8 @@ void do_arrow_react(char c, int *i, char *buffer, shell_t *shell)
             printf("$> ");
             printf("%s", shell->current_h->line);
             memset(buffer, 0, sizeof(char) * strlen(buffer));
+            if (extend_buffer_history(&buffer, shell) == 84)
+                return;
             strcat(buffer, shell->current_h->line);
             *i = (int)strlen(buffer);
             if (shell->current_h->next) {

@@ -7,15 +7,16 @@
 
 #include <line_edition.h>
 
-int extend_buffer(char **buffer, size_t *buffer_size)
+int extend_buffer(char **buffer, shell_t *shell)
 {
-    if (strlen(*buffer) >= *buffer_size - 1) {
-        *buffer_size = *buffer_size + 1024;
-        *buffer = realloc(*buffer, *buffer_size);
+    if ((int)strlen(*buffer) >= shell->cursor_size - 1) {
+        shell->cursor_size = shell->cursor_size + 1024;
+        *buffer = realloc(*buffer, shell->cursor_size);
         if (!*buffer) {
             perror("Memory allocation error");
             return 84;
         }
+        memset(*buffer, 0, shell->cursor_size);
     }
     return 0;
 }
