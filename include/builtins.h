@@ -46,6 +46,7 @@ int builtin_do_case(command_t *, shell_t *);
 int builtin_do_complete(command_t *, shell_t *);
 int builtin_do_continue(command_t *, shell_t *);
 int builtin_do_default(command_t *, shell_t *);
+int builtin_do_dirs(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
