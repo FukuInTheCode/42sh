@@ -48,6 +48,7 @@ int builtin_do_continue(command_t *, shell_t *);
 int builtin_do_default(command_t *, shell_t *);
 int builtin_do_dirs(command_t *, shell_t *);
 int builtin_do_echotc(command_t *, shell_t *);
+int builtin_do_else(command_t *, shell_t *);
 
 int builtin_handle_varname_error(shell_t *, char const *);
 int builtin_handle_varfirst_error(shell_t *, char const *);
@@ -94,6 +95,7 @@ static builtin_t const builtins[] = {
     {"default", builtin_do_default},
     {"dirs", builtin_do_dirs},
     {"echotc", builtin_do_echotc},
+    {"else", builtin_do_else},
     {"exit", builtin_do_exit},
     {"history", builtin_do_history},
     {"printenv", builtin_do_printenv},
