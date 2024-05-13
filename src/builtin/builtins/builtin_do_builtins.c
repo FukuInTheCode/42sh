@@ -9,6 +9,19 @@
 #include "builtins.h"
 #include <sys/ioctl.h>
 
+////////////////////////////////////////////////////////////
+// int get_num_col(int num_col, int num_builtins,
+//    int max_col_width, int size_terminal)
+//
+// num_col -> number of columns
+// num_builtins -> number of builtins
+// max_col_width -> maximum of column width
+// size_terminal -> size of the terminal
+//
+// This function returns the number of the columns.
+//
+// RETURN VALUE : int that the number of columns
+////////////////////////////////////////////////////////////
 int get_num_col(int num_col, int num_builtins,
     int max_col_width, int size_terminal)
 {
@@ -19,6 +32,16 @@ int get_num_col(int num_col, int num_builtins,
     return num_col;
 }
 
+////////////////////////////////////////////////////////////
+// int if_terminal_to_small(shell_t *shell)
+//
+// shell -> structure that contains all the data of the shell
+//
+// This function launches a special printing if the terminal
+// is too small.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int if_terminal_to_small(shell_t *shell)
 {
     display_builtins_small_terminal();
@@ -26,6 +49,15 @@ int if_terminal_to_small(shell_t *shell)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// int get_size_col(shell_t *shell)
+//
+// shell -> structure that contains all the data of the shell
+//
+// This function returns the size of the columns.
+//
+// RETURN VALUE : int that is always 0
+////////////////////////////////////////////////////////////
 int get_size_col(shell_t *shell)
 {
     int num_builtins = sizeof(builtins) / sizeof(builtins[0]);
@@ -47,6 +79,18 @@ int get_size_col(shell_t *shell)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// int builtin_do_builtins(command_t *command, shell_t *shell)
+//
+// command -> structure that contains all the data of the
+// current command
+// shell -> structure that contains all the data of the shell
+//
+// This function launches the builtins command of the 42sh.
+//
+// RETURN VALUE : int that is 84 if an error occurs
+// otherwise it's 0.
+////////////////////////////////////////////////////////////
 int builtin_do_builtins(command_t *command, shell_t *shell)
 {
     int argc = 0;

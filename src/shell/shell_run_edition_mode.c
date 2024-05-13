@@ -12,6 +12,19 @@
 #include <stdio.h>
 #include <string.h>
 
+////////////////////////////////////////////////////////////
+// int shell_run_edition(shell_t *shell)
+//
+// shell -> structure that contains all the data of the shell
+//
+// This function launches the loop of the shell, and executes the prompt,
+// input detection and execution and launches all the processes but
+// with line edition mode.
+//
+// RETURN VALUE : int that represent the status of the execution
+// the program return 84 when an error occurs, and return 0
+// if all works correctly.
+////////////////////////////////////////////////////////////
 int shell_run_edition(shell_t *shell)
 {
     char *line = NULL;
