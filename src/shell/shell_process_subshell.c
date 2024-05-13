@@ -13,6 +13,16 @@
 #include <time.h>
 #include <unistd.h>
 
+////////////////////////////////////////////////////////////
+// static command_t *find_end_subshell(command_t *cmd)
+//
+// cmd -> structure of the current command
+//
+// This function finds the end of the subshell.
+//
+// RETURN VALUE : command_t that is the last command, NULL
+// if an error occurs.
+////////////////////////////////////////////////////////////
 static command_t *find_end_subshell(command_t *cmd)
 {
     size_t subshell_count = 0;
@@ -28,6 +38,19 @@ static command_t *find_end_subshell(command_t *cmd)
     return NULL;
 }
 
+////////////////////////////////////////////////////////////
+// static int copy_commands(shell_t *subshell,
+// command_t *cmd, command_t *end)
+//
+// subshell -> structure of the subshell
+// start -> structure of the start command
+// end -> structure of the end command
+//
+// This function copies the commands on the subshell.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 static int copy_commands(shell_t *subshell, command_t *cmd, command_t *end)
 {
     command_t *copy = NULL;
@@ -45,6 +68,20 @@ static int copy_commands(shell_t *subshell, command_t *cmd, command_t *end)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// static int init_subshell(shell_t *subshell, command_t *start,
+//    command_t *end, shell_t *shell)
+//
+// shell -> structure of the shell
+// subshell -> structure of the subshell
+// start -> structure of the start command
+// end -> structure of the end command
+//
+// This function inits the subshell.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 static int init_subshell(shell_t *subshell, command_t *start,
     command_t *end, shell_t *shell)
 {
@@ -69,6 +106,16 @@ static int init_subshell(shell_t *subshell, command_t *start,
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// static int run_subshell(shell_t *subshell, shell_t *shell)
+//
+// shell -> structure of the shell
+// subshell -> structure of the subshell
+//
+// This function runs the subshell.
+//
+// RETURN VALUE : int that is always 0.
+////////////////////////////////////////////////////////////
 static int run_subshell(shell_t *subshell, shell_t *shell)
 {
     pid_t pid = fork();
@@ -84,6 +131,19 @@ static int run_subshell(shell_t *subshell, shell_t *shell)
     return 0;
 }
 
+////////////////////////////////////////////////////////////
+// int shell_process_subshell(shell_t *shell,
+// command_t *cmd, command_t **curr)
+//
+// shell -> structure of the shell
+// cmd -> structure of the subshell command
+// curr -> structure of the current command
+//
+// This function processes a subshell.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 int shell_process_subshell(shell_t *shell, command_t *cmd, command_t **curr)
 {
     shell_t *subshell = NULL;

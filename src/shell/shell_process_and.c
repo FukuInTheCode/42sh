@@ -7,6 +7,19 @@
 
 #include "my.h"
 
+////////////////////////////////////////////////////////////
+// int shell_process_and(shell_t *shell, command_t *cmd,
+// command_t **curr)
+//
+// shell -> structure of the shell
+// cmd -> structure of the command
+// curr -> structure of the current command
+//
+// This function processes the and.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 int shell_process_and(shell_t *shell, command_t *cmd, command_t **curr)
 {
     command_t *prev = command_get_prev(cmd);

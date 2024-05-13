@@ -8,6 +8,17 @@
 #include "my.h"
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// int command_process_status(command_t *command, void *shell)
+//
+// shell -> structure of the shell
+// command -> structure of the command
+//
+// This function processes status command.
+//
+// RETURN VALUE : int that is 84 if an error occurs, 0
+// otherwise.
+////////////////////////////////////////////////////////////
 int command_process_status(command_t *command, void *shell)
 {
     if (!command || !shell)
