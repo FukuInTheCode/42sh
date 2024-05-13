@@ -35,3 +35,4 @@ void reset_variables(DIR **, char *, int **);
 void display_command(char **, int, char *, char *);
 void set_command_auto_completion(char **);
 void my_qsort(char **, size_t);
+void autocomplete_buffer(char **, char *);

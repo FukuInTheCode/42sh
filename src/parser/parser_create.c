@@ -9,6 +9,15 @@
 
 #include <stdlib.h>
 
+////////////////////////////////////////////////////////////
+// parser_t *parser_create(void)
+//
+// This function does necessary memory allocations to the
+// parser.
+//
+// RETURN VALUE : parser_t * with the memory allocation.
+// NULL if an error occurs
+////////////////////////////////////////////////////////////
 parser_t *parser_create(void)
 {
     parser_t *parser = calloc(1, sizeof(parser_t));

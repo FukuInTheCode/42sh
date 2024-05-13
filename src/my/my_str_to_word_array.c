@@ -7,50 +7,141 @@
 
 #include "my.h"
 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-static size_t count_word(char *s, char const *delim)
+static bool change_is_quote(bool is_quote)
 {
-    size_t count = 0;
-    char *dupped = strdup(s);
-
-    if (!dupped)
-        return 0;
-    for (char *t = strtok(dupped, delim); t; t = strtok(NULL, delim))
-        count++;
-    free(dupped);
-    return count;
+    if (is_quote)
+        return false;
+    return true;
 }
 
-static char **fill_arr(char **arr, char *s, char const *delim)
+static int get_nb_of_word(char *str, char const *del)
 {
-    char *dupped = strdup(s);
-    size_t i = 0;
+    bool is_quote = false;
+    int nb = 1;
+    char quote = ' ';
 
-    if (!dupped)
-        return NULL;
-    for (char *t = strtok(dupped, delim); t; t = strtok(NULL, delim)) {
-        arr[i] = strdup(t);
-        if (!arr[i])
-            return NULL;
-        i++;
+    for (int i = 0; str[i + 1] != '\0'; i++) {
+        if ((str[i] == '"' && (quote == ' ' || quote == '"')) ||
+        (str[i] == '\'' && (quote == ' ' || quote == '\''))) {
+            is_quote = change_is_quote(is_quote);
+            quote = str[i];
+        }
+        if (is_quote == false)
+            quote = ' ';
+        if (my_char_is_in_str(str[i], del) &&
+        !my_char_is_in_str(str[i + 1], del) && !is_quote)
+            nb++;
     }
-    free(dupped);
-    return arr;
+    if (my_char_is_in_str(str[0], del))
+        nb--;
+    return nb;
 }
 
-char **my_str_to_word_array(char *s, char const *delim)
+static int count_size_of_word(char *str, int i, char const *del)
 {
-    char **arr = NULL;
-    size_t count = 0;
+    bool is_quote = false;
+    int nb = i;
+    int quote_nb = 0;
+    char quote = ' ';
 
-    if (!s || !delim)
+    while ((!my_char_is_in_str(str[nb], del) || is_quote == true) && str[nb]) {
+        if ((str[nb] == '"' && (quote == ' ' || quote == '"')) ||
+        (str[nb] == '\'' && (quote == ' ' || quote == '\''))) {
+            is_quote = change_is_quote(is_quote);
+            quote = str[nb];
+            quote_nb++;
+        }
+        if (is_quote == false)
+            quote = ' ';
+        nb++;
+    }
+    return (nb - i - quote_nb);
+}
+
+static int get_size_of_word_with_quote(char *str, int i, char const *del)
+{
+    int nb = i;
+    bool is_quote = false;
+    char quote = ' ';
+
+    while ((!my_char_is_in_str(str[nb], del) || is_quote == true) && str[nb]){
+        if ((str[nb] == '"' && (quote == ' ' || quote == '"')) ||
+        (str[nb] == '\'' && (quote == ' ' || quote == '\''))) {
+            is_quote = change_is_quote(is_quote);
+            quote = str[nb];
+        }
+        if (is_quote == false)
+            quote = ' ';
+        nb++;
+    }
+    return (nb - i);
+}
+
+static int change_i(int i, char *str, char const *del)
+{
+    while (my_char_is_in_str(str[i], del))
+        i++;
+    return i;
+}
+
+static char **my_str_to_word_array_malloc(int nb_of_word)
+{
+    char **word_array;
+
+    if (nb_of_word == 0)
         return NULL;
-    count = count_word(s, delim);
-    arr = malloc(sizeof(char *) * (count + 1));
-    if (!arr)
+    word_array = calloc(nb_of_word + 1, sizeof(char *));
+    if (word_array == NULL)
         return NULL;
-    memset((void *)arr, 0, sizeof(char *) * (count + 1));
-    return fill_arr(arr, s, delim);
+    return word_array;
+}
+
+static char *add_in_word_array(int word_size, int i, char *str)
+{
+    char *word = calloc(word_size + 1, sizeof(char));
+    int quote_nb = 0;
+    char quote = ' ';
+    bool is_quote = false;
+
+    if (word == NULL)
+        return NULL;
+    for (int j = i; (j - i) < word_size + quote_nb; j++) {
+        if (is_quote == false)
+            quote = ' ';
+        if ((str[j] == '"' && (quote == ' ' || quote == '"')) ||
+        (str[j] == '\'' && (quote == ' ' || quote == '\''))) {
+            is_quote = change_is_quote(is_quote);
+            quote = str[j];
+            quote_nb++;
+            continue;
+        }
+        word[j - i - quote_nb] = str[j];
+    }
+    return word;
+}
+
+char **my_str_to_word_array(char *str, char const *del)
+{
+    int number_of_word = get_nb_of_word(str, del);
+    char **word_array = my_str_to_word_array_malloc(number_of_word);
+    int ind = 0;
+    int word_size;
+
+    if (word_array == NULL)
+        return (NULL);
+    for (int i = 0; ind < number_of_word; i += word_size + 1) {
+        i = change_i(i, str, del);
+        word_size = count_size_of_word(str, i, del);
+        word_array[ind] = add_in_word_array(word_size, i, str);
+        if (word_array[ind] == NULL)
+            return NULL;
+        word_size = get_size_of_word_with_quote(str, i, del);
+        ind++;
+    }
+    return (word_array);
 }

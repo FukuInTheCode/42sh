@@ -7,6 +7,18 @@
 
 #include "my.h"
 
+////////////////////////////////////////////////////////////
+// int command_process_user_errors(command_t *command, void *shell_ptr)
+//
+// command -> structure that contains all the data of the
+// current command
+// shell_ptr -> pointer to the shell structure
+//
+// This function processes the users_errors on command use.
+//
+// RETURN VALUE : int that is 0 if there is no error, otherwise
+// it's 1.
+////////////////////////////////////////////////////////////
 int command_process_user_errors(command_t *command, void *shell_ptr)
 {
     for (size_t i = 0; user_errors[i].f; i++) {
