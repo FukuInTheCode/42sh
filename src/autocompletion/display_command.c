@@ -12,6 +12,17 @@
 #include <stdio.h>
 #include "env.h"
 
+static int indice_init(int lenght)
+{
+    if (lenght < 18)
+        return 5;
+    if (lenght < 40)
+        return 4;
+    if (lenght < 100)
+        return 3;
+    return 2;
+}
+
 void display_space(char *argument, int max_lenght)
 {
     int lenght = strlen(argument);
@@ -21,23 +32,33 @@ void display_space(char *argument, int max_lenght)
     }
 }
 
-void display_command(char **command)
+static void display_buffer(int telltale, char *save, char *buffer)
+{
+    if (telltale != 1)
+        printf("\n");
+    printf("$> ");
+    if (save)
+        printf("%s ", save);
+    printf("%s", buffer);
+}
+
+void display_command(char **command, int size, char *save, char *buffer)
 {
     int telltale = 1;
     int lenght = find_max_lenght(command);
 
-    if (command == NULL)
+    if (size == 0)
         return;
+    printf("\n");
     for (size_t i = 0; command[i] != NULL; i++) {
         printf("%s", command[i]);
-        if (telltale == 6) {
+        if (my_len_word_array(command) - 1 != i)
+            display_space(command[i], lenght);
+        if (telltale == indice_init(lenght)) {
             printf("\n");
             telltale = 0;
         }
-        if (my_len_word_array(command) - 1 != i)
-            display_space(command[i], lenght);
         telltale++;
     }
-    if (telltale != 1)
-        printf("\n");
+    display_buffer(telltale, save, buffer);
 }

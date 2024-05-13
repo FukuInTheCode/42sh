@@ -74,5 +74,7 @@ char **my_cat_word_array(char **arr1, char **arr2)
     result = first_part(&i, len1, result, arr1);
     result = last_part(i, result, arr2, len2);
     result[len1 + len2] = NULL;
+    my_free_word_array(arr1);
+    my_free_word_array(arr2);
     return result;
 }

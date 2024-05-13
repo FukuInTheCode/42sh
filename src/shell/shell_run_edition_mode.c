@@ -31,7 +31,7 @@ int shell_run_edition(shell_t *shell)
 
     while (!shell_get_exit(shell)) {
         shell_handle_prompt(shell);
-        line = get_input();
+        line = get_input(shell);
         if (!line) {
             return 84;
         }
