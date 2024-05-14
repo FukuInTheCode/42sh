@@ -163,12 +163,6 @@ SRC = src/main.c \
 	src/command/command_handle_divzero_coredumped_error.c \
 	src/command/command_handle_killed_error.c \
 	src/command/command_handle_loop_error.c \
-	src/autocompletion/set_command.c \
-	src/autocompletion/find_lenght.c \
-	src/autocompletion/tabulation_alone.c \
-	src/autocompletion/autocomplete.c \
-	src/autocompletion/display_command.c \
-	src/autocompletion/search_command.c \
 	src/separator/separator_cmp.c \
 	src/builtin/glob/builtin_do_glob.c \
 	src/builtin/pushd/builtin_do_pushd.c \
@@ -263,6 +257,14 @@ SRC = src/main.c \
 	src/builtin/login/builtin_do_login.c \
 	src/builtin/jobs/builtin_do_jobs.c \
 	src/builtin/wait/builtin_do_wait.c \
+	src/autocompletion/display_command.c \
+	src/autocompletion/dir_close_arg.c \
+	src/autocompletion/autocomplete.c \
+	src/autocompletion/allocation.c \
+	src/autocompletion/tabulation_alone.c \
+	src/autocompletion/find_lenght.c \
+	src/autocompletion/search_command.c \
+	src/autocompletion/variables_handle.c \
 
 OBJ	= $(SRC:src/%.c=obj/%.o)
 
